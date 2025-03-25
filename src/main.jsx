@@ -4,13 +4,15 @@ import { BrowserRouter, Routes, Route } from 'react-router'
 import { Provider } from 'react-redux'
 // import Store from './app/store'
 
-import DashboardPage from './page/DashboardPage';
-import LoginPage from './page/LoginPage'
-import Layout from './components/Layout/Layout'
-import PrivateRoute from './components/Login/PrivateRoot'
-import RoomPage from './page/RoomPage'
-import BookingsPage from './page/BookingsPage'
-import ContactsPage from './page/ContactsPage'
+import PrivateRoute from './page/Login/PrivateRoot';
+
+import DashboardPage from './page/Dashboard/DashboardPage'
+import RoomPage from './page/Rooms/RoomPage'
+import BookingsPage from './page/Bookings/BookingsPage'
+import ContactsPage from './page/Contacts/ContactsPage'
+import Layout from './components/Layout/Layout';
+import LoginPage from './page/Login/LoginPage';
+
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
