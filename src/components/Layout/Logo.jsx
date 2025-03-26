@@ -8,8 +8,8 @@ const Logo = () => {
         <LogoContainer>
             <Image src={LogoIcon}/>
             <HeaderContainer>
-                <FirstHeader/>
-                <SecondHeader/>
+                <FirstHeader>travl</FirstHeader>
+                <SecondHeader>Hotel Admin Dashboard</SecondHeader>
             </HeaderContainer>
         </LogoContainer>
     )

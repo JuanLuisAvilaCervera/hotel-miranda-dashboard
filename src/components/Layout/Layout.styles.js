@@ -6,6 +6,6 @@ export const LayoutContainer = styled.div`
 
     grid-template:
 
-    "left top top" 10rem
-    "left outlet outlet" 1fr / 15rem 1fr
+    "left top top" 5rem
+    "left outlet outlet" 1fr / 25% 1fr
 `;
