@@ -1,5 +1,5 @@
 import React from "react";
-import LogoIcon from "../../resources/img/logo-icon.png";
+import LogoIcon from "../../resources/img/Layout/logo-icon.png";
 import { LogoContainer , Image , HeaderContainer , FirstHeader , SecondHeader } from "./LeftMenu.styles";
 
 const Logo = () => {

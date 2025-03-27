@@ -1,17 +1,14 @@
 import styled from "styled-components";
 
-export const NavList = styled.li`
-    color: #799283;
+export const ListElement = styled.li`
+
     width: 100%;
     heigth: 3rem;
     background-color: transparent;
     padding: 1rem 4rem;
 
-    &:hover{
-        color: #E23428;
-        border-left: solid 5px red;
-    }
-
+    color:${(props) => props.$active ? "#E23428" : "#799283"} ;
+    border-left: ${(props) => props.$active === "active" ? "solid 3px #E23428" : "none"};
 `;
 
 export const UnorderedList = styled.ul`
@@ -31,6 +28,8 @@ export const LeftContainer = styled.div`
         padding-top: 1rem;
 
         grid-area: left;
+        box-shadow: 13px 3px 40px #00000005;
+        display: ${(props) => props.$visibility ? "block" : "none"}
 `;
 
 export const LogoContainer = styled.div`
@@ -88,10 +87,10 @@ export const Portrait = styled.div`
 
 `;
 
-export const Button = styled.button`
-    border: none;
-    border-radius: 10px;
-    background-color: light-green;
-    color: green;
-    padding: 1rem;
-`;
+// export const Button = styled.button`
+//     border: none;
+//     border-radius: 10px;
+//     background-color: light-green;
+//     color: green;
+//     padding: 1rem;
+// `;
