@@ -11,15 +11,7 @@ export const ListElement = styled.li`
     border-left: ${(props) => props.$active === "active" ? "solid 3px #E23428" : "none"};
 `;
 
-export const UnorderedList = styled.ul`
-    width: 100%;
-    background-color: transparent;
-    list-style: none;
-    padding: 0;
 
-    margin-top: 4rem;
-
-`;
 
 export const LeftContainer = styled.div`
         

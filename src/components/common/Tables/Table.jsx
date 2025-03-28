@@ -1,9 +1,11 @@
 import React, {  useEffect, useState } from "react";
-import { Tables } from "./Table.style";
+import { ProfilePic, Tables } from "./Table.style";
 
 const Table = ({data}) => {
 
     const [columns , setColumns] = useState([...Object.keys(data[0])]);
+    const [page , setPage] = useState(0);
+
 
 
     function generateColumnName(column){
@@ -18,7 +20,8 @@ const Table = ({data}) => {
         return columnNameArray.join(" ");;
     }
     
-    return ( <Tables>
+    return ( <>
+        <Tables>
             <thead>
                 <tr>
                     {columns.map((column, key) => {
@@ -30,20 +33,23 @@ const Table = ({data}) => {
                 </tr>
             </thead>
             <tbody>
-                    {data.map((row , key) => {
+                    {data.slice(page*10, page*10 +10).map((row , key) => {
 
-                        return <tr key={key}>
-                            {
-                                columns.map(( column , columnKey) => {
-                                    return <td key={columnKey}>{ String(row[column]).substring(0,100)}</td>
-                                })
-                            }
-                        </tr>
-                    })
-
+                            return <tr key={key}>
+                                {
+                                    columns.map(( column , columnKey) => {
+                                        if(column == "photo"){
+                                            return <td key={columnKey}><ProfilePic src={row[column]} alt=""/></td>
+                                        }
+                                        return <td key={columnKey}>{ String(row[column]).substring(0,100)}</td>
+                                    })
+                                }
+                            </tr>
+                        })
                     }
             </tbody>
         </Tables>
+        </>
     )
 }
 

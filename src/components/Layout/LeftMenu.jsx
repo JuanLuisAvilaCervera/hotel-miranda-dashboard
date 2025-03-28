@@ -1,19 +1,18 @@
 import React, { useState } from "react";
-import {UnorderedList , LeftContainer , UserPortrait, Portrait } from "./LeftMenu.styles.js";
+import { LeftContainer , UserPortrait, Portrait } from "./LeftMenu.styles.js";
 import Logo from "./Logo";
 import { Button } from "./Button.js";
 import NavList from "./NavList.jsx";
+import { UnorderedList } from "../common/Tables/Table.style.js";
 
 const LeftMenu  = ({visibility}) => {
 
-    const bg = 'blue';
+    const bg = '#EBF1EF';
 
     const [active , setActive] = useState("Dashboard");
 
     const changeActive = ( elementName) => {
-        console.log(elementName);
         setActive(elementName);
-        console.log(active);
     }
 
     return(
@@ -23,8 +22,8 @@ const LeftMenu  = ({visibility}) => {
                 <NavList page={"/"} content={"Dashboard"} active={active === "Dashboard" ? "active" : ""} activate={() => changeActive("Dashboard")}/>
                 <NavList page={"/rooms"} content={"Room"} active={active === "Room" ? "active" : ""} activate={() => changeActive("Room")}/>
                 <NavList page={"/bookings"} content={"Bookings"} active={active === "Bookings" ? "active" : ""} activate={() => changeActive("Bookings")}/>
-                <NavList page={"/contacts"} content={"Guest"} active={active === "Guest" ? "active" : ""} activate = { () => changeActive("Guest")} />
-                <NavList>Concierge</NavList>
+                <NavList page={"/contacts"} content={"Contacts"} active={active === "Contacts" ? "active" : ""} activate = { () => changeActive("Contacts")} />
+                <NavList page={"/users"} content={"Users"} active={active === "Users" ? "active" : ""} activate = { () => changeActive("Users")}/>
             </UnorderedList>
             <UserPortrait>
                 <Portrait/>
