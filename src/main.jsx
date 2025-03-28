@@ -12,6 +12,7 @@ import BookingsPage from './page/Bookings/BookingsPage'
 import ContactsPage from './page/Contacts/ContactsPage'
 import Layout from './components/Layout/Layout';
 import LoginPage from './page/Login/LoginPage';
+import UsersPage from './page/Users/UsersPage';
 
 
 createRoot(document.getElementById('root')).render(
@@ -26,6 +27,7 @@ createRoot(document.getElementById('root')).render(
                 <Route path="/rooms" element={<RoomPage />}/>
                 <Route path='/bookings' element={<BookingsPage />}/>
                 <Route path='/contacts' element={<ContactsPage />}/>
+                <Route path= '/users' element={<UsersPage/>}/>
             {/* </Route> */}
           </Route>
         </Routes>
