@@ -69,14 +69,7 @@ export const UserPortrait = styled.div`
     justify-self: center;
 `;
 
-export const Portrait = styled.div`
 
-    width: 5rem;
-    height: 5rem;
-    background-color: grey;
-    border-radius: 10px;
-
-`;
 
 export const Correo = styled.p`
     font-size: 11px;

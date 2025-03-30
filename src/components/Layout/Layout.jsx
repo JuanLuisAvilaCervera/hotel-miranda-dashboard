@@ -7,16 +7,21 @@ import TopMenu from "./TopMenu/TopMenu.jsx";
 const Layout = () => {
 
     const [leftMenuVisible , setLeftMenuVisible] = useState(true);
+    const [title ,setTitle] = useState("Dashboard");
 
     const toggleLeftMenu = () => {
         console.log(leftMenuVisible);
         setLeftMenuVisible(!leftMenuVisible);
     }
+    
+    const handleTitle = (propTitle) => {
+        setTitle(propTitle)
+    }
 
 
     return <LayoutContainer $visibility={leftMenuVisible}>
-                <LeftMenu visibility={leftMenuVisible}/>
-                <TopMenu toggle={toggleLeftMenu} pagetitle={"Dashboard"}/>
+                <LeftMenu visibility={leftMenuVisible} handleTitle={ (props) => handleTitle(props)}/>
+                <TopMenu toggle={toggleLeftMenu} pagetitle={title}/>
                 <Outlet />
             </LayoutContainer>;
 };
