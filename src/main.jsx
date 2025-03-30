@@ -10,7 +10,7 @@ import DashboardPage from './page/Dashboard/DashboardPage'
 import RoomPage from './page/Rooms/RoomPage'
 import BookingsPage from './page/Bookings/BookingsPage'
 import ContactsPage from './page/Contacts/ContactsPage'
-import Layout from './components/Layout/Layout';
+import Layout from './components/Layout/Layout.jsx';
 import LoginPage from './page/Login/LoginPage';
 import UsersPage from './page/Users/UsersPage';
 

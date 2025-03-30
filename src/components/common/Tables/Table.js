@@ -22,8 +22,6 @@ export const UnorderedList = styled.ul`
     background-color: transparent;
     list-style: none;
     padding: 0;
-
-
 `;
 
 export const NavList = styled.li`

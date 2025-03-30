@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Outlet } from "react-router";
-import LeftMenu from "./LeftMenu.jsx";
-import { LayoutContainer } from "./Layout.styles.js";
-import TopMenu from "./TopMenu.jsx";
+import LeftMenu from "./LeftMenu/LeftMenu.jsx";
+import { LayoutContainer } from "./Layout.js";
+import TopMenu from "./TopMenu/TopMenu.jsx";
 
 const Layout = () => {
 

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Page } from "../../components/common/page.styles";
+import { Page } from "../../components/common/page.js";
 import Table from "../../components/common/Tables/Table.jsx";
 import Contacts from "./Contacts.json";
-import { UnorderedList } from "../../components/common/Tables/Table.style.js";
-import { NavList } from "../../components/common/Tables/Table.style.js";
+import { UnorderedList } from "../../components/common/Tables/Table.js";
+import { NavList } from "../../components/common/Tables/Table.js";
 
 const ContactsPage = () => {
 

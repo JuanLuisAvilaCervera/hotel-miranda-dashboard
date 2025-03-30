@@ -1,5 +1,5 @@
 import React, {  useEffect, useState } from "react";
-import { ProfilePic, Tables } from "./Table.style";
+import { ProfilePic, Tables } from "./Table.js";
 
 const Table = ({data}) => {
 
@@ -8,7 +8,7 @@ const Table = ({data}) => {
 
 
 
-    function generateColumnName(column){
+   const generateColumnName = (column) =>{
 
 
         let columnNameArray = column.split("_");
