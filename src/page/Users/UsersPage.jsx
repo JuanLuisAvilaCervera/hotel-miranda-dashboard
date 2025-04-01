@@ -1,25 +1,48 @@
 import React, { useEffect, useState } from "react";
 import { Page } from "../../components/common/page.js";
 import Table from "../../components/common/Tables/Table.jsx";
-import Users from "./Users.json";
+// import Users from "./Users.json";
 import { UnorderedList } from "../../components/common/Tables/Table.js";
 import { NavList } from "../../components/common/Tables/Table.js";
+import { useDispatch, useSelector } from "react-redux";
+import { getUsersData, getUsersStatus } from "./UserSlice.js";
+import UserThunk from "./UserThunk.js";
 
 const UsersPage = () => {
 
-    const [data , setData] = useState(Users);
     const [order , setOrder] = useState("start_date");
     const [active, setActive] = useState("all")
+    const [users, setUsers] = useState([{}])
+    const [data , setData] = useState(users);
+
+    const dispatch = useDispatch();
+
+    const usersData = useSelector(getUsersData);
+    const usersStatus = useSelector(getUsersStatus);
+
+    useEffect( () => {
+        if(!usersStatus){
+            dispatch(UserThunk());
+        }else if(usersStatus === 'fulfilled'){
+            setUsers(usersData)
+        }else if(usersStatus === 'rejected'){
+            console.log("Error loading users")
+        }
+    }, [dispatch, usersStatus])
+
+    useEffect(() => {
+        setData(users);
+    }, [users])
 
     const filterActive = (value) => {
-        return Users.filter((user) => user.active === value) || [];
+        return users.filter((user) => user.active === value) || [];
     }
 
     const changeActive = (listName) => {
             setActive(listName);
             switch(listName){
                 case "all":
-                    setData(Users);
+                    setData(users);
                     break;
                 case "active":
                     setData(filterActive(true));
@@ -28,7 +51,7 @@ const UsersPage = () => {
                     setData(filterActive(false));
                     break;
                 default:
-                    setData(Users);
+                    setData(users);
                     break;
             }
         }

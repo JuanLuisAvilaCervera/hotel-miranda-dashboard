@@ -1,25 +1,50 @@
 import React, { useEffect, useState } from "react";
 import { Page } from "../../components/common/page";
 import Table from "../../components/common/Tables/Table.jsx";
-import Bookings from "./Bookings.json";
+// import Bookings from "./Bookings.json";
 import { UnorderedList } from "../../components/common/Tables/Table.js";
 import { NavList } from "../../components/common/Tables/Table.js";
+import { useDispatch, useSelector } from "react-redux";
+import { getBookingsData, getBookingsStatus } from "./BookingSlice.js";
+import BookingsThunk from "./BookingThunk.js";
 
 const BookingsPage = () => {
 
     const [active , setActive] = useState("all");
-    const [data , setData] = useState(Bookings);
     const [order , setOrder] = useState("order_date");
+    const [bookings, setBookings] = useState([{}]);
+    const [data , setData] = useState(bookings);
+    // const [data , setData] = useState(Bookings);
+
+    const dispatch = useDispatch();
+
+    const bookingsData = useSelector(getBookingsData);
+    const bookingsStatus = useSelector(getBookingsStatus);
+
+    useEffect( () => {
+        if(!bookingsStatus){
+            dispatch(BookingsThunk());
+        }else if(bookingsStatus === 'fulfilled'){
+            setBookings(bookingsData)
+        }else if(bookingsStatus === 'rejected'){
+            console.log("Error loading bookings")
+        }
+    }, [dispatch, bookingsStatus])
+
+    useEffect(() => {
+        setData(bookings);
+    }, [bookings])
 
     const filterBooking = (listFilter) => {
-        return Bookings.filter((booking) => booking.status === listFilter) || [];
+        return bookings.filter((booking) => booking.status === listFilter) || [];
     }
 
     const changeActive = (listName) => {
         setActive(listName);
         switch(listName){
             case "all":
-                setData(Bookings);
+                // setData(Bookings);
+                setData(bookings);
                 break;
             case "checkin":
                 setData(filterBooking("Check In"));
@@ -31,7 +56,8 @@ const BookingsPage = () => {
                 setData(filterBooking("In Progress"));
                 break;
             default:
-                setData(Bookings);
+                // setData(Bookings);
+                setData(bookings);
                 break;
         }
     }

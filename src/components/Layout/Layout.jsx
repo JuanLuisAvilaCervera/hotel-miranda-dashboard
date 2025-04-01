@@ -10,7 +10,6 @@ const Layout = (handleLogin) => {
     const [title ,setTitle] = useState("Dashboard");
 
     const toggleLeftMenu = () => {
-        console.log(leftMenuVisible);
         setLeftMenuVisible(!leftMenuVisible);
     }
     

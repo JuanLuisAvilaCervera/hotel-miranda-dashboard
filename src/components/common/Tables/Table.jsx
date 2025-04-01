@@ -3,10 +3,13 @@ import { ProfilePic, Tables } from "./Table.js";
 
 const Table = ({data}) => {
 
-    const [columns , setColumns] = useState([...Object.keys(data[0])]);
+    
+
+    const [columns , setColumns] = useState([]);
     const [page , setPage] = useState(0);
 
 
+    useEffect(() => {data ? setColumns([...Object.keys(data[0])]) : setColumns([])} , [data])
 
    const generateColumnName = (column) =>{
 
