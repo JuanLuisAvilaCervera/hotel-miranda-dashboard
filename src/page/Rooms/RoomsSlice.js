@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import UsersThunk from "./UserThunk";
+import RoomsThunk from "./RoomsThunk";
 
  
 
-export const UsersSlice = createSlice({
+export const RoomsSlice = createSlice({
 
-    name: 'users',
+    name: 'rooms',
     initialState: {
         state: 'idle',
         data: [],
@@ -13,14 +13,14 @@ export const UsersSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-        .addCase(UsersThunk.pending, (state) => {
+        .addCase(RoomsThunk.pending, (state) => {
             state.status = 'pending'
         })
-        .addCase(UsersThunk.fulfilled, (state, action) => {
+        .addCase(RoomsThunk.fulfilled, (state, action) => {
             state.status = 'fulfilled';
             state.data = action.payload;
         })
-        .addCase(UsersThunk.rejected, (state, action) => {
+        .addCase(RoomsThunk.rejected, (state, action) => {
             state.status = 'rejected';
             state.error = action.error.message;
         })
@@ -28,6 +28,6 @@ export const UsersSlice = createSlice({
     
 })
 
-export const getUsersData = (state) => state.users.data
-export const getUsersStatus = (state) => state.users.status
-export const getUsersError = (state) => state.users.error
+export const getRoomsData = (state) => state.rooms.data
+export const getRoomsStatus = (state) => state.rooms.status
+export const getRoomsError = (state) => state.rooms.error
