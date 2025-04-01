@@ -8,6 +8,8 @@ const PrivateRoute = () => {
   <>
     <Outlet/>
   </> 
-  : <Navigate to="/" />;
+  : 
+  <Navigate to="/"/>
+  ;
 };
 export default PrivateRoute;

@@ -24,17 +24,16 @@ createRoot(document.getElementById('root')).render(
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<LoginPage />} />
-            <Route element={<PrivateRoute />} >
-              <Route element={<Layout />}>
+          <Route element={<PrivateRoute />} >
+            <Route element={<Layout />}>
 
-                    <Route path="/dashboard" element={<DashboardPage />}/>
-                    <Route path="/rooms" element={<RoomPage />}/>
-                    <Route path='/bookings' element={<BookingsPage />}/>
-                    <Route path='/contacts' element={<ContactsPage />}/>
-                    <Route path= '/users' element={<UsersPage/>}/>
-              </Route>
-
+              <Route path="/dashboard" element={<DashboardPage />}/>
+              <Route path="/rooms" element={<RoomPage />}/>
+              <Route path='/bookings' element={<BookingsPage />}/>
+              <Route path='/contacts' element={<ContactsPage />}/>
+              <Route path= '/users' element={<UsersPage/>}/>
             </Route>
+          </Route>
         </Routes>
       </BrowserRouter>
     </Provider>
