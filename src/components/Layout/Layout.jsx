@@ -4,7 +4,7 @@ import LeftMenu from "./LeftMenu/LeftMenu.jsx";
 import { LayoutContainer } from "./Layout.js";
 import TopMenu from "./TopMenu/TopMenu.jsx";
 
-const Layout = () => {
+const Layout = (handleLogin) => {
 
     const [leftMenuVisible , setLeftMenuVisible] = useState(true);
     const [title ,setTitle] = useState("Dashboard");
@@ -21,7 +21,7 @@ const Layout = () => {
 
     return <LayoutContainer $visibility={leftMenuVisible}>
                 <LeftMenu visibility={leftMenuVisible} handleTitle={ (props) => handleTitle(props)}/>
-                <TopMenu toggle={toggleLeftMenu} pagetitle={title}/>
+                <TopMenu toggle={toggleLeftMenu} pagetitle={title} handleLogin={handleLogin}/>
                 <Outlet />
             </LayoutContainer>;
 };
