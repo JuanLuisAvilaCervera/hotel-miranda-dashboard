@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { LeftContainer , UserPortrait, Portrait } from "./LeftMenu.styles.js";
-import Logo from "./Logo";
-import { Button } from "./Button.js";
-import NavList from "./NavList.jsx";
-import { UnorderedList } from "../common/Tables/Table.style.js";
+import { LeftContainer , UserPortrait, Correo } from "./LeftMenu.js";
+import Logo from "../Logo.jsx";
+import { Button } from "../../common/Button.js";
+import NavList from "../NavList.jsx";
+import { UnorderedList } from "../../common/Tables/Table.js";
+import { Portrait } from "../../common/commonStyles.js";
 
-const LeftMenu  = ({visibility}) => {
+const LeftMenu  = ({visibility, handleTitle}) => {
 
     const bg = '#EBF1EF';
 
@@ -13,6 +14,7 @@ const LeftMenu  = ({visibility}) => {
 
     const changeActive = ( elementName) => {
         setActive(elementName);
+        handleTitle(elementName);
     }
 
     return(
@@ -26,10 +28,12 @@ const LeftMenu  = ({visibility}) => {
                 <NavList page={"/users"} content={"Users"} active={active === "Users" ? "active" : ""} activate = { () => changeActive("Users")}/>
             </UnorderedList>
             <UserPortrait>
-                <Portrait/>
+                <Portrait $size={"4rem"}/>
                 <h4>Juan Luis Ávila Cervera</h4>
-                <h5>juanluisavilacervera44@gmail.com</h5>
-                <Button $backgroundcolor={bg} type={"secondary"}>Contact</Button>
+                <Correo>{"juanluisavilacervera44@gmail.com".slice(0,15)}</Correo>
+                <Correo>{"juanluisavilacervera44@gmail.com".slice(15)}</Correo>
+
+                <Button $backgroundcolor={bg} type={"secondary"}>Edit</Button>
             </UserPortrait>
         </LeftContainer>
         

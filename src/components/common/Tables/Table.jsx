@@ -1,14 +1,17 @@
 import React, {  useEffect, useState } from "react";
-import { ProfilePic, Tables } from "./Table.style";
+import { ProfilePic, Tables } from "./Table.js";
 
 const Table = ({data}) => {
 
-    const [columns , setColumns] = useState([...Object.keys(data[0])]);
+    
+
+    const [columns , setColumns] = useState([]);
     const [page , setPage] = useState(0);
 
 
+    useEffect(() => {data ? setColumns([...Object.keys(data[0])]) : setColumns([])} , [data])
 
-    function generateColumnName(column){
+   const generateColumnName = (column) =>{
 
 
         let columnNameArray = column.split("_");

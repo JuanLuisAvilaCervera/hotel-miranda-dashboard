@@ -5,10 +5,10 @@ export const LayoutContainer = styled.div`
     display: grid;
 
         grid-template: ${(props) => props.$visibility ? `
-            "left top top" 8rem
-            "left outlet outlet" 1fr / 25% 1fr
+            "left top top" 4rem
+            "left outlet outlet" 1fr / 20% 1fr
         `:`
-            "top" 8rem
+            "top" 4rem
             "outlet" 1fr / 1fr
         `}
 

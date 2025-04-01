@@ -1,6 +1,6 @@
 import React from "react";
 import LogoIcon from "../../resources/img/Layout/logo-icon.png";
-import { LogoContainer , Image , HeaderContainer , FirstHeader , SecondHeader } from "./LeftMenu.styles";
+import { LogoContainer , Image , HeaderContainer , FirstHeader , SecondHeader } from "./LeftMenu/LeftMenu";
 
 const Logo = () => {
 

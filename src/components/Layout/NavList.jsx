@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import { ListElement } from "./LeftMenu.styles";
+import { ListElement } from "./LeftMenu/LeftMenu";
 
 const NavList = ({page, content, active , activate}) => {
 

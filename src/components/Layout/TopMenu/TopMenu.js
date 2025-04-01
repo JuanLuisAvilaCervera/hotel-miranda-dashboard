@@ -13,14 +13,16 @@ export const TopContainer = styled.div`
 `;
 
 export const Burguer = styled.img`
-    width: 2rem;
-    height: 2rem;
-    margin-left: 2rem;
-    margin-right: 2rem;
+    width: 1rem;
+    height: 1rem;
+    margin: 0 2rem;
     justify-self: start;
 `;
 
 
 export const MiddleSpace = styled.div`
     width: 50%;
+`
+export const Title = styled.h1`
+    font-size: 28px;
 `
