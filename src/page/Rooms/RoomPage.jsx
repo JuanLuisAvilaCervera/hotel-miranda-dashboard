@@ -4,6 +4,7 @@ import Table from "../../components/common/Tables/Table.jsx";
 import { getRoomsData, getRoomsStatus } from "./RoomsSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 import RoomsThunk from "./RoomsThunk.js";
+import { OrderSelect, OrderSelectDiv, TableNav } from "../../components/common/Tables/Table.js";
 
 const RoomPage = () => {
 
@@ -53,17 +54,17 @@ const RoomPage = () => {
 
     return <Page>
 
-            <div>
-
-                    <select
+            <TableNav $justify={"end"}>
+                <OrderSelectDiv>
+                    <OrderSelect
                         value={order}
                         onChange={(e) => setOrder(e.target.value)}>
                         <option value="room_id"> Room Number </option>
                         <option value="price"> Price </option>
                         <option value="offer"> Available </option>
-                    </select>
-
-            </div>
+                    </OrderSelect>
+                </OrderSelectDiv>
+            </TableNav>
             <Table data={data}/>
             </Page>;
 }

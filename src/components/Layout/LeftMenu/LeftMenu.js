@@ -27,6 +27,8 @@ export const LogoContainer = styled.div`
     width: 100%;
     display:flex;
     flex-direction: row;
+    justify-content: center;
+    margin-bottom: 2rem;
 `;
 
 export const Image = styled.img`

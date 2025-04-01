@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Navigate } from "react-router";
-import { LoginContainer } from "./login";
+import { LoginBody, LoginContainer, LoginInput } from "./login";
+import { Button } from "../../components/common/Button";
+import Logo from "../../components/Layout/Logo";
 
 const LoginPage = () => {
 
@@ -8,19 +10,35 @@ const LoginPage = () => {
     const [login , setLogin] = useState(localStorage.getItem('login') || "");
 
     const handleLogin = (props) => {
+        
         localStorage.setItem('login', props);
         setLogin(props);
     }
+
+   
 
     
     return login ? 
     <>
         <Navigate to="/dashboard"/>
     </> : <>
-        <LoginContainer>
-            <h1>Login</h1>
-            <button onClick={() => handleLogin("nombre y apellidos del usuario")}>Log In</button>
-        </LoginContainer>
+        <LoginBody>
+            <Logo/>
+            <LoginContainer>
+                
+                <h1>Login</h1>
+                    <label>
+                        Username:
+                        <LoginInput type="text" />
+                    </label>
+                    <label>
+                        Password:
+                        <LoginInput type="password" />
+                    </label>
+                    <Button onClick={() => handleLogin("nombre y apellidos del usuario")} $backgroundcolor={'#EBF1EF'} $color={"green"}>Log In</Button>
+            </LoginContainer>
+            
+        </LoginBody>
     </>
     ;
 }
