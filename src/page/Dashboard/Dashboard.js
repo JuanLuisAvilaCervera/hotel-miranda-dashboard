@@ -39,7 +39,7 @@ export const KPIText = styled.div`
 export const LatestReviews = styled.div`
     background-color: white;
     border-radius: 18px;
-    width: 100%;
+    
     text-align: left;
     padding: 1rem;
 `

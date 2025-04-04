@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Navigate } from "react-router";
 import { LoginBody, LoginContainer, LoginInput } from "./login";
-import { Button } from "../../components/common/Button";
+import { Button } from "../../components/common/Buttons";
 import Logo from "../../components/Layout/Logo";
 
 const LoginPage = () => {
@@ -35,7 +35,7 @@ const LoginPage = () => {
                         Password:
                         <LoginInput type="password" />
                     </label>
-                    <Button onClick={() => handleLogin("nombre y apellidos del usuario")} $backgroundcolor={'#EBF1EF'} $color={"green"}>Log In</Button>
+                    <Button onClick={() => handleLogin("nombre y apellidos del usuario")}>Log In</Button>
             </LoginContainer>
             
         </LoginBody>

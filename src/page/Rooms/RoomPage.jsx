@@ -27,9 +27,7 @@ const RoomPage = () => {
         }
     }, [dispatch, roomsStatus])
 
-    useEffect(() => {
-            setData(rooms);
-    }, [rooms])
+    useEffect(() => setData(rooms), [rooms])
    
 
     useEffect(() => { handleOrder()}, [order])
