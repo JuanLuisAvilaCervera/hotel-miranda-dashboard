@@ -23,6 +23,9 @@ const ContactsPage = () => {
                 break;
             case "archived":
                 setData(filterArchived());
+            default:
+                setData(Contacts);
+                break;
         }
     }
 
@@ -35,7 +38,7 @@ const ContactsPage = () => {
 
     return <Page>
             <UnorderedList>
-                <NavList $active={active === "all" ? "active" : ""}  onClick = {  () => changeActive("all")}>All Bookings</NavList>
+                <NavList $active={active === "all" ? "active" : ""}  onClick = {  () => changeActive("all")}>All Contacts</NavList>
                 <NavList $active={active === "archived" ? "active" : ""} onClick = {  () => changeActive("archived")}>Archived</NavList>
             </UnorderedList>
             <Table data={data}/>

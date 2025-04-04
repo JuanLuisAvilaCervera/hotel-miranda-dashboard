@@ -11,3 +11,7 @@ export const Portrait = styled.div`
     margin: ${(props) => props.$margin ? props.$margin : 0}
 
 `;
+
+export const Form = styled.form`
+
+`

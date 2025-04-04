@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { LeftContainer , UserPortrait, Correo } from "./LeftMenu.js";
 import Logo from "../Logo.jsx";
-import { Button } from "../../common/Button.js";
+import { Button } from "../../common/Buttons.js";
 import NavList from "../NavList.jsx";
 import { UnorderedList } from "../../common/Tables/Table.js";
 import { Portrait } from "../../common/commonStyles.js";
 
 const LeftMenu  = ({visibility, handleTitle}) => {
 
-    const bg = '#EBF1EF';
 
     const [active , setActive] = useState("Dashboard");
 
@@ -33,7 +32,7 @@ const LeftMenu  = ({visibility, handleTitle}) => {
                 <Correo>{"juanluisavilacervera44@gmail.com".slice(0,15)}</Correo>
                 <Correo>{"juanluisavilacervera44@gmail.com".slice(15)}</Correo>
 
-                <Button $backgroundcolor={bg} type={"secondary"}>Edit</Button>
+                <Button type={"secondary"}>Edit</Button>
             </UserPortrait>
         </LeftContainer>
         
