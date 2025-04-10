@@ -21,7 +21,7 @@ const UsersPage = () => {
     const usersStatus = useSelector(getUsersStatus);
 
     useEffect( () => {
-        if(!usersStatus){
+        if(usersStatus === "idle"){
             dispatch(UserThunk());
         }else if(usersStatus === 'fulfilled'){
             setUsers(usersData)

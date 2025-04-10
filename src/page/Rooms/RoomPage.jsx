@@ -18,7 +18,7 @@ const RoomPage = () => {
     const roomsStatus = useSelector(getRoomsStatus);
 
     useEffect( () => {
-        if(!roomsStatus){
+        if(roomsStatus === 'idle'){
             dispatch(RoomsThunk());
         }else if(roomsStatus === 'fulfilled'){
             setRooms(roomsData)
