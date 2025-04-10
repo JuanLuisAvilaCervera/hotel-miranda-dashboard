@@ -7,7 +7,7 @@ export const UsersSlice = createSlice({
 
     name: 'users',
     initialState: {
-        state: 'idle',
+        status: 'idle',
         data: [],
         error: null
     },

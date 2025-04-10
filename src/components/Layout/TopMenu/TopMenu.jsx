@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import burguer from "../../../resources/img/Layout/burguer-menu.png";
 import { CiMail } from "react-icons/ci";
 import { CiBellOn } from "react-icons/ci";
@@ -13,14 +13,21 @@ const TopMenu  = ({pagetitle, toggle}) => {
 
     const navigate = useNavigate();
 
+    const [login , setLogin] = useState(localStorage.getItem('login'))
+
     const handleLogin = () => {
         
         localStorage.removeItem('login');
 
-        navigate('/');
-                
+        setLogin("")
     }
 
+    useEffect( () => {
+        if(login === "" || login === null || login === undefined){
+            localStorage.removeItem('login');
+            navigate("/")
+        }
+    } , [login])
 
     return(
         <TopContainer>
@@ -38,7 +45,7 @@ const TopMenu  = ({pagetitle, toggle}) => {
                 </div>
             </IconContext.Provider>
             <IconContext.Provider value={{size: "2rem"}}>
-                <div onClick={() => handleLogin()}>
+                <div onClick={handleLogin}>
                     <CiLogout/>
                 </div>
             </IconContext.Provider>

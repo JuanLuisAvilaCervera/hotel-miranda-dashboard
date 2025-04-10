@@ -13,8 +13,7 @@ const BookingsPage = () => {
 
     const [active , setActive] = useState("all");
     const [order , setOrder] = useState("order_date");
-    const [bookings , setBookings] = useState([{}])
-    const [data , setData] = useState(bookings);
+    const [data , setData] = useState([]);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -23,45 +22,35 @@ const BookingsPage = () => {
     const bookingsStatus = useSelector(getBookingsStatus);
 
     useEffect( () => {
-        if(!bookingsStatus){
+        if(bookingsStatus === "idle"){
             dispatch(BookingsThunk());
         }else if(bookingsStatus === "fulfilled"){
-            setBookings(bookingsData)
-            console.log(bookingsData)
+            setData(bookingsData)
         }else if(bookingsStatus === "rejected"){
             console.log("Error loading bookings")
         }
     }, [dispatch , bookingsStatus , bookingsData])
 
-    useEffect(() => setData(bookings), [bookings])
-
-    const filterBooking = (listFilter) => bookings.filter((booking) => booking.status === listFilter || []);
+    const filterBooking = (listFilter) => data.filter((booking) => booking.status === listFilter || []);
 
     const changeActive = (listName) => {
         setActive(listName);
         switch(listName){
             case "all":
-                setData(bookings);
-                break;
+                return data;
             case "checkin":
-                setData(filterBooking("Check In"));
-                break;
+                return (filterBooking("Check In"));
             case "checkout":
-                setData(filterBooking("Check Out"));
-                break;
+                return (filterBooking("Check Out"));
             case "progress":
-                setData(filterBooking("In Progress"));
-                break;
+                return (filterBooking("In Progress"));
             default:
-                setData(bookings);
-                break;
+                return data;
         }
     }
 
-    useEffect(() => { handleOrder()}, [order, active])
-
     const handleOrder = () => {
-        setData([...data].sort((a,b) => {
+        return([...data].sort((a,b) => {
 
 
             switch(order){
@@ -72,7 +61,7 @@ const BookingsPage = () => {
                 case "check_out_date":
                     return new Date(b.check_out_date) - new Date(a.check_out_date);
                 case "guest":
-                    return 0; // CHANGE
+                    return a.client_id - b.client_id; // CHANGE
                 default:
                     return 0;
             }
@@ -83,16 +72,17 @@ const BookingsPage = () => {
     return <Page>
             <TableNav $justify={"space-between"}>
             <UnorderedList>
-                <NavList $active={active === "all" ? "active" : ""}  onClick = {  () => changeActive("all")}>All Bookings</NavList>
-                <NavList $active={active === "checkin" ? "active" : ""} onClick = {  () => changeActive("checkin")}>Checking In</NavList>
-                <NavList $active={active === "checkout" ? "active" : ""}  onClick = {  () => changeActive("checkout")}>Checking Out</NavList>
-                <NavList $active={active === "progress" ? "active" : ""} onClick = {  () => changeActive("progress")}>In Progress</NavList>
+                <NavList $active={active === "all" ? "active" : ""}  onClick = {  () => setData(() =>changeActive("all"))}>All Bookings</NavList>
+                <NavList $active={active === "checkin" ? "active" : ""} onClick = {  () => setData(changeActive("checkin"))}>Checking In</NavList>
+                <NavList $active={active === "checkout" ? "active" : ""}  onClick = {  () => setData(changeActive("checkout"))}>Checking Out</NavList>
+                <NavList $active={active === "progress" ? "active" : ""} onClick = {  () => setData(changeActive("progress"))}>In Progress</NavList>
             </UnorderedList>
             <Button onClick={ () => navigate("/newbookings")}>Add Booking</Button>
+            <Button onClick={ () => setData([{data: "hello"}])}>Change Data</Button>
             <OrderSelectDiv>
                     <OrderSelect
                 value={order}
-                onChange={(e) => setOrder(e.target.value)}>
+                onChange={(e) => {setOrder(e.target.value)}}>
                 <option value="order_date"> Newest </option>
                 <option value="check_in_date"> Check In </option>
                 <option value="check_out_date"> Check Out </option>
@@ -101,7 +91,7 @@ const BookingsPage = () => {
             </OrderSelectDiv>
             </TableNav>
             
-            <Table data={data}/>
+            {data.length > 0 ? <Table data={data}/> : <h1>Loading...</h1>}
             </Page>;
 }
 

@@ -7,7 +7,7 @@ export const BookingsSlice = createSlice({
 
     name: 'bookings',
     initialState: {
-        state: 'idle',
+        status: 'idle',
         data: [],
         error: null
     },

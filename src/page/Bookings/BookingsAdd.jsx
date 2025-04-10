@@ -5,7 +5,7 @@ import { FormElement, FormInput, FormTextArea } from "../../components/common/Fo
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { AddBookingsThunk } from "./BookingThunk";
-import { getBookingsData } from "./BookingSlice";
+import { getBookingsData, getBookingsStatus } from "./BookingSlice";
 
 export const BookingsAdd = () => {
 
@@ -13,6 +13,7 @@ export const BookingsAdd = () => {
     const dispatch = useDispatch();
 
     const bookingsData = useSelector(getBookingsData);
+    const bookingsStatus = useSelector(getBookingsStatus);
 
     
     const curr = new Date();
@@ -22,17 +23,21 @@ export const BookingsAdd = () => {
         room_id : bookingsData.length +1,
         client_id : bookingsData.length + 1,
         order_date: (curr.getMonth() + 1) + '/' + (curr.getDate() ) + '/' + (curr.getFullYear()),
-        check_in_date : '',
-        check_out_date: '',
+        check_in_date : null,
+        check_out_date: null,
         status: 'Pending',
         special_request: ''
     })
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if(dispatch(AddBookingsThunk({newBooking}))){
-            navigate("/bookings")
-        };
+        if(newBooking.check_in_date && newBooking.check_out_date && newBooking.check_in_date < newBooking.check_out_date){
+            dispatch(AddBookingsThunk({newBooking}))
+            if(bookingsStatus === 'fulfilled'){
+                navigate("/bookings");
+            }
+        }
+        
     }
 
     const handleChange = (event) => {

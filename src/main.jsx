@@ -8,7 +8,7 @@ import PrivateRoute from './page/Login/PrivateRoot';
 
 import DashboardPage from './page/Dashboard/DashboardPage'
 import RoomPage from './page/Rooms/RoomPage'
-import BookingsPage from './page/Bookings/BookingsPage'
+import BookingsList from './page/Bookings/BookingsList.jsx'
 import ContactsPage from './page/Contacts/ContactsPage'
 import Layout from './components/Layout/Layout.jsx';
 import LoginPage from './page/Login/LoginPage';
@@ -30,7 +30,7 @@ createRoot(document.getElementById('root')).render(
 
               <Route path="/dashboard" element={<DashboardPage />}/>
               <Route path="/rooms" element={<RoomPage />}/>
-              <Route path='/bookings' element={<BookingsPage />}/>
+              <Route path='/bookings' element={<BookingsList />}/>
               <Route path='/newbookings' element={<BookingsAdd />}/>
               <Route path='/contacts' element={<ContactsPage />}/>
               <Route path= '/users' element={<UsersPage/>}/>
