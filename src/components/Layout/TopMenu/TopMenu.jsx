@@ -45,7 +45,7 @@ const TopMenu  = ({pagetitle, toggle}) => {
                 </div>
             </IconContext.Provider>
             <IconContext.Provider value={{size: "2rem"}}>
-                <div onClick={handleLogin}>
+                <div id="logout" onClick={handleLogin}>
                     <CiLogout/>
                 </div>
             </IconContext.Provider>

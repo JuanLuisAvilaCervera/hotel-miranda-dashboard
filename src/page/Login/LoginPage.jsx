@@ -63,13 +63,13 @@ const LoginPage = () => {
                     <h1>Login</h1>
                     <label>
                         Username:
-                        <LoginInput type="text" onChange={(e)=> setUser(e.target.value)} required/>
+                        <LoginInput type="text" name="username" onChange={(e)=> setUser(e.target.value)} required/>
                     </label>
                     <label>
                         Password:
-                        <LoginInput type="password" onChange={(e) => setPassword(e.target.value)} required/>
+                        <LoginInput type="password" name="password" onChange={(e) => setPassword(e.target.value)} required/>
                     </label>
-                    <InputButton type="submit" value="Log In"/>
+                    <InputButton type="submit" name="submit" value="Log In"/>
                 </form>
                 
             </LoginContainer>
