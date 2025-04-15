@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Page } from "../../components/common/page";
+import { Page } from "../../components/common/page.js";
 import Table from "../../components/common/Tables/Table.jsx";
 import { OrderSelect, OrderSelectDiv, TableNav, UnorderedList } from "../../components/common/Tables/Table.js";
 import { NavList } from "../../components/common/Tables/Table.js";
 import { useDispatch, useSelector } from "react-redux";
-import {  getBookingsData, getBookingsStatus } from "./BookingSlice.js";
 import BookingsThunk from "./BookingThunk.js";
 import { Button } from "../../components/common/Buttons.js";
 import { useNavigate } from "react-router";
+import { AppDispatch, RootState } from "../../app/store.js";
+import Booking from "../../interfaces/bookingInterface.js";
+
+
 
 const BookingsPage = () => {
 
@@ -16,10 +19,10 @@ const BookingsPage = () => {
     const [data , setData] = useState([]);
 
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
 
-    const bookingsData = useSelector(getBookingsData);
-    const bookingsStatus = useSelector(getBookingsStatus);
+    const bookingsData = useSelector((state : RootState) => state.bookings.data);
+    const bookingsStatus = useSelector((state : RootState) => state.bookings.status);
 
     useEffect( () => {
         if(bookingsStatus === "idle"){
@@ -31,9 +34,9 @@ const BookingsPage = () => {
         }
     }, [dispatch , bookingsStatus , bookingsData])
 
-    const filterBooking = (listFilter) => data.filter((booking) => booking.status === listFilter || []);
+    const filterBooking = (listFilter : string) => data.filter((booking : Booking) => booking.status === listFilter || []);
 
-    const changeActive = (listName) => {
+    const changeActive = (listName : string) => {
         setActive(listName);
         switch(listName){
             case "all":
@@ -50,16 +53,16 @@ const BookingsPage = () => {
     }
 
     const handleOrder = () => {
-        return([...data].sort((a,b) => {
+        return([...data].sort((a : any,b : any) => {
 
 
             switch(order){
                 case "order_date":
-                    return new Date(b.order_date) - new Date(a.order_date);
+                    return Number(new Date(b.order_date)) - Number(new Date(a.order_date));
                 case "check_in_date":
-                    return new Date(b.check_in_date) - new Date(a.check_in_date);
+                    return Number(new Date(b.check_in_date)) - Number(new Date(a.check_in_date));
                 case "check_out_date":
-                    return new Date(b.check_out_date) - new Date(a.check_out_date);
+                    return Number(new Date(b.check_out_date)) - Number(new Date(a.check_out_date));
                 case "guest":
                     return a.client_id - b.client_id; // CHANGE
                 default:
@@ -69,7 +72,7 @@ const BookingsPage = () => {
     }
 
 
-    return <Page>
+    return <Page $alignment="">
             <TableNav $justify={"space-between"}>
             <UnorderedList>
                 <NavList $active={active === "all" ? "active" : ""}  onClick = {  () => setData(() =>changeActive("all"))}>All Bookings</NavList>
@@ -78,7 +81,6 @@ const BookingsPage = () => {
                 <NavList $active={active === "progress" ? "active" : ""} onClick = {  () => setData(changeActive("progress"))}>In Progress</NavList>
             </UnorderedList>
             <Button onClick={ () => navigate("/newbookings")}>Add Booking</Button>
-            <Button onClick={ () => setData([{data: "hello"}])}>Change Data</Button>
             <OrderSelectDiv>
                     <OrderSelect
                 value={order}

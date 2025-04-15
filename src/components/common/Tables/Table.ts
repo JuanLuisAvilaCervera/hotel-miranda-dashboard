@@ -25,7 +25,7 @@ export const UnorderedList = styled.ul`
     margin: 0;
 `;
 
-export const NavList = styled.li`
+export const NavList = styled.li<{$active : "active" | ""}>`
     display: inline-block;
     heigth: 3rem;
     background-color: transparent;
@@ -55,7 +55,7 @@ export const OrderSelect = styled.select`
         padding: 0.5rem;
     }
 `
-export const TableNav = styled.div`
+export const TableNav = styled.div<{$justify: "right" | "center" | "left" | "space-between" | "space-around"}>`
     display: flex;
     flex-direction: row;
     justify-content: ${(props) => props.$justify ? props.$justify : "left"};
