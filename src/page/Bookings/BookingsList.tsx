@@ -80,7 +80,7 @@ const BookingsPage = () => {
                 <NavList $active={active === "checkout" ? "active" : ""}  onClick = {  () => setData(changeActive("checkout"))}>Checking Out</NavList>
                 <NavList $active={active === "progress" ? "active" : ""} onClick = {  () => setData(changeActive("progress"))}>In Progress</NavList>
             </UnorderedList>
-            <Button onClick={ () => navigate("/newbookings")}>Add Booking</Button>
+            <Button $backgroundcolor="" onClick={ () => navigate("/newbookings")}>Add Booking</Button>
             <OrderSelectDiv>
                     <OrderSelect
                 value={order}

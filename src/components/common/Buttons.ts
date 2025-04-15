@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Button = styled.button`
+export const Button = styled.button<{$backgroundcolor : string}>`
 
     background-color: ${(props) => props.$backgroundcolor || "#EBF1EF"};
     color: ${(props) => props.color || "green"};
@@ -10,7 +10,7 @@ export const Button = styled.button`
 
 `;
 
-export const InputButton = styled.input`
+export const InputButton = styled.input<{$backgroundcolor : string}>`
 
     background-color: ${(props) => props.$backgroundcolor || "#EBF1EF"};
     color: ${(props) => props.color|| "green"};

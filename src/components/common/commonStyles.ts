@@ -2,7 +2,7 @@ import styled from "styled-components"
 
 
 
-export const Portrait = styled.div`
+export const Portrait = styled.div<{$size : string , $margin: string}>`
 
     width: ${(props) => props.$size ? props.$size : "1rem"};
     height: ${(props) => props.$size ? props.$size : "1rem"};

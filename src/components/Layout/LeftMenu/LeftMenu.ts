@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ListElement = styled.li`
+export const ListElement = styled.li<{$active : "active" | "" }>`
 
     width: 100%;
     heigth: 3rem;
@@ -13,7 +13,7 @@ export const ListElement = styled.li`
 
 
 
-export const LeftContainer = styled.div`
+export const LeftContainer = styled.div<{$visibility: boolean}>`
         
         height: 100vh;
         background-color: white;

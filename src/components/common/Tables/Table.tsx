@@ -5,13 +5,13 @@ const Table = ({data}) => {
 
     
 
-    const [columns , setColumns] = useState([]);
-    const [page , setPage] = useState(0);
+    const [columns , setColumns] = useState<string[]>([]);
+    const [page , setPage] = useState<number>(0);
 
 
     useEffect(() => {data ? setColumns([...Object.keys(data[0])]) : setColumns([])} , [data])
 
-   const generateColumnName = (column) =>{
+   const generateColumnName = (column : string) =>{
 
 
         let columnNameArray = column.split("_");
