@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Page } from "../../components/common/page.js";
-import Table from "../../components/common/Tables/Table.jsx";
+import TableComponent from "../../components/common/Tables/TableComponent.js";
 import Contacts from "./Contacts.json";
 import { UnorderedList } from "../../components/common/Tables/Table.js";
 import { NavList } from "../../components/common/Tables/Table.js";

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Outlet } from "react-router";
-import LeftMenu from "./LeftMenu/LeftMenu.jsx";
-import { LayoutContainer } from "./Layout.js";
-import TopMenu from "./TopMenu/TopMenu.jsx";
+import LeftMenu from "./LeftMenu/LeftMenu.tsx";
+import { LayoutContainer } from "./Layout.ts";
+import TopMenu from "./TopMenu/TopMenu.tsx";
 
-const Layout = (handleLogin) => {
+const Layout = () => {
 
     const [leftMenuVisible , setLeftMenuVisible] = useState(true);
     const [title ,setTitle] = useState("Dashboard");
@@ -13,14 +13,14 @@ const Layout = (handleLogin) => {
         setLeftMenuVisible(!leftMenuVisible);
     }
     
-    const handleTitle = (propTitle) => {
+    const handleTitle = (propTitle : string) => {
         setTitle(propTitle)
     }
 
 
     return <LayoutContainer $visibility={leftMenuVisible}>
-                <LeftMenu visibility={leftMenuVisible} handleTitle={ (props) => handleTitle(props)}/>
-                <TopMenu toggle={toggleLeftMenu} pagetitle={title} handleLogin={handleLogin}/>
+                <LeftMenu visibility={leftMenuVisible} handleTitle={ (props : string) => handleTitle(props)}/>
+<TopMenu toggle={toggleLeftMenu} pagetitle={title}/>
                 <Outlet />
             </LayoutContainer>;
 };

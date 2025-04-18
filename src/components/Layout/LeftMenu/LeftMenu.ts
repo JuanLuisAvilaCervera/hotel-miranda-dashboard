@@ -77,11 +77,3 @@ export const Correo = styled.p`
     font-size: 11px;
     margin: 0;
 `
-
-// export const Button = styled.button`
-//     border: none;
-//     border-radius: 10px;
-//     background-color: light-green;
-//     color: green;
-//     padding: 1rem;
-// `;

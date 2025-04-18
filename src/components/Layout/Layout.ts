@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const LayoutContainer = styled.div`
+export const LayoutContainer = styled.div<{$visibility : boolean}>`
 
     display: grid;
 

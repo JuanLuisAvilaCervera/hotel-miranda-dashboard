@@ -1,16 +1,23 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, Slice } from "@reduxjs/toolkit";
 import  BookingsThunk, {AddBookingsThunk, DeleteBookingThunk, UpdateBookingThunk} from "./BookingThunk";
+import { RootState } from "../../app/store";
+import Booking from "../../interfaces/bookingInterface";
 
- 
+interface bookingSliceInitialState{
+    status : string,
+    data: Booking[],
+    error: string | undefined |null,
 
-export const BookingsSlice = createSlice({
+}
 
+export const BookingsSlice : Slice = createSlice({
     name: 'bookings',
     initialState: {
         status: 'idle',
         data: [],
         error: null
-    },
+    } as bookingSliceInitialState,
+    reducers : {},
     extraReducers: (builder) => {
         builder
         .addCase(BookingsThunk.pending, (state) => {
@@ -61,4 +68,6 @@ export const BookingsSlice = createSlice({
     
 })
 
-export const getBookingsError = (state) => state.bookings.error
+export const getBookingsError = (state : RootState) => state.bookings.error
+export const getBookingsStatus = (state : RootState) => state.bookings.status;
+export const getBookingsData = (state : RootState) => state.bookings.data;

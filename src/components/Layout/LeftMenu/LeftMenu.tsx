@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import { LeftContainer , UserPortrait, Correo } from "./LeftMenu.js";
-import Logo from "../Logo.jsx";
+import { LeftContainer , UserPortrait, Correo } from "./LeftMenu.ts";
+import Logo from "../Logo.tsx";
 import { Button } from "../../common/Buttons.js";
-import NavList from "../NavList.jsx";
-import { UnorderedList } from "../../common/Tables/Table.js";
-import { Portrait } from "../../common/commonStyles.js";
+import NavList from "../NavList.tsx";
+import { UnorderedList } from "../../common/Tables/Table.ts";
+import { Portrait } from "../../common/commonStyles.ts";
 
 const LeftMenu  = ({visibility, handleTitle}) => {
 
 
     const [active , setActive] = useState("Dashboard");
 
-    const changeActive = ( elementName) => {
+    const changeActive = ( elementName : string) => {
         setActive(elementName);
         handleTitle(elementName);
     }
@@ -27,12 +27,12 @@ const LeftMenu  = ({visibility, handleTitle}) => {
                 <NavList page={"/users"} content={"Users"} active={active === "Users" ? "active" : ""} activate = { () => changeActive("Users")}/>
             </UnorderedList>
             <UserPortrait>
-                <Portrait $size={"4rem"}/>
+                <Portrait $size={"4rem"} $margin=""/>
                 <h4>Juan Luis Ávila Cervera</h4>
                 <Correo>{"juanluisavilacervera44@gmail.com".slice(0,15)}</Correo>
                 <Correo>{"juanluisavilacervera44@gmail.com".slice(15)}</Correo>
 
-                <Button type={"secondary"}>Edit</Button>
+                <Button $backgroundcolor="">Edit</Button>
             </UserPortrait>
         </LeftContainer>
         

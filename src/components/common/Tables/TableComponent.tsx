@@ -1,7 +1,8 @@
 import React, {  useEffect, useState } from "react";
-import { ProfilePic, Tables } from "./Table.js";
+import Booking from "../../../interfaces/bookingInterface";
+import { ProfilePic, Tables } from "./Table";
 
-const Table = ({data}) => {
+const TableComponent = (data : Booking[]) => {
 
     
 
@@ -23,8 +24,7 @@ const Table = ({data}) => {
         return columnNameArray.join(" ");;
     }
     
-    return ( <>
-        <Tables>
+    return <Tables>
             <thead>
                 <tr>
                     {columns.map((column, key) => {
@@ -36,15 +36,14 @@ const Table = ({data}) => {
                 </tr>
             </thead>
             <tbody>
-                    {data.slice(page*10, page*10 +10).map((row , key) => {
+                    {data.slice(page*10, page*10 +10).map((row : Booking , key) => {
 
                             return <tr key={key}>
                                 {
                                     columns.map(( column , columnKey) => {
-                                        if(column == "photo"){
-                                            return <td key={columnKey}><ProfilePic src={row[column]} alt=""/></td>
-                                        }
-                                        return <td key={columnKey}>{ String(row[column]).substring(0,100)}</td>
+
+                                        return column == "photo" ? <td key={columnKey}><ProfilePic src={String(row[column])} alt=""/></td> : <td key={columnKey}>{ String(row[column]).substring(0,100)}</td>
+                                        
                                     })
                                 }
                             </tr>
@@ -52,8 +51,7 @@ const Table = ({data}) => {
                     }
             </tbody>
         </Tables>
-        </>
-    )
+    
 }
 
-export default Table;
+export default TableComponent;

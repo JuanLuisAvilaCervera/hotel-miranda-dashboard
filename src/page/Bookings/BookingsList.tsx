@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Page } from "../../components/common/page.js";
-import Table from "../../components/common/Tables/Table.jsx";
 import { OrderSelect, OrderSelectDiv, TableNav, UnorderedList } from "../../components/common/Tables/Table.js";
 import { NavList } from "../../components/common/Tables/Table.js";
 import { useDispatch, useSelector } from "react-redux";
 import BookingsThunk from "./BookingThunk.js";
 import { Button } from "../../components/common/Buttons.js";
 import { useNavigate } from "react-router";
-import { AppDispatch, RootState } from "../../app/store.js";
+import { AppDispatch, RootState, useAppSelector } from "../../app/store.js";
 import Booking from "../../interfaces/bookingInterface.js";
+import { getBookingsData, getBookingsStatus } from "./BookingSlice.js";
+import TableComponent from "../../components/common/Tables/TableComponent.js";
 
 
 
@@ -16,31 +17,31 @@ const BookingsPage = () => {
 
     const [active , setActive] = useState("all");
     const [order , setOrder] = useState("order_date");
-    const [data , setData] = useState([]);
+    const [bookingList , setList] = useState<Booking[]>([]);
 
     const navigate = useNavigate();
     const dispatch = useDispatch<AppDispatch>();
 
-    const bookingsData = useSelector((state : RootState) => state.bookings.data);
-    const bookingsStatus = useSelector((state : RootState) => state.bookings.status);
+    const bookingsData : Booking[] = useAppSelector(getBookingsData);
+    const bookingsStatus : string = useAppSelector(getBookingsStatus);
 
     useEffect( () => {
         if(bookingsStatus === "idle"){
             dispatch(BookingsThunk());
         }else if(bookingsStatus === "fulfilled"){
-            setData(bookingsData)
+            setList(bookingsData)
         }else if(bookingsStatus === "rejected"){
             console.log("Error loading bookings")
         }
     }, [dispatch , bookingsStatus , bookingsData])
 
-    const filterBooking = (listFilter : string) => data.filter((booking : Booking) => booking.status === listFilter || []);
+    const filterBooking = (listFilter : string) => bookingList.filter((booking : Booking) => booking.status === listFilter || []);
 
     const changeActive = (listName : string) => {
         setActive(listName);
         switch(listName){
             case "all":
-                return data;
+                return bookingList;
             case "checkin":
                 return (filterBooking("Check In"));
             case "checkout":
@@ -48,12 +49,12 @@ const BookingsPage = () => {
             case "progress":
                 return (filterBooking("In Progress"));
             default:
-                return data;
+                return bookingList;
         }
     }
 
     const handleOrder = () => {
-        return([...data].sort((a : any,b : any) => {
+        return([...bookingList].sort((a : any,b : any) => {
 
 
             switch(order){
@@ -93,7 +94,7 @@ const BookingsPage = () => {
             </OrderSelectDiv>
             </TableNav>
             
-            {data.length > 0 ? <Table data={data}/> : <h1>Loading...</h1>}
+            {bookingList.length > 0 ? <TableComponent data={bookingList}/> : <h1>Loading...</h1>}
             </Page>;
 }
 
