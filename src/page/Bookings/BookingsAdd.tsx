@@ -6,6 +6,7 @@ import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { AddBookingsThunk } from "./BookingThunk";
 import { getBookingsData, getBookingsStatus } from "./BookingSlice";
+import Booking from "../../interfaces/bookingInterface";
 
 export const BookingsAdd = () => {
 
@@ -18,21 +19,33 @@ export const BookingsAdd = () => {
     
     const curr = new Date();
 
-    const [newBooking , setBooking] = useState({
+    interface NewBooking{
+        booking_id : number,
+        room_id : number,
+        client_id : number,
+        order_date: Date,
+        check_in_date : Date | null,
+        check_out_date: Date | null,
+        status: string,
+        special_request: string
+    }
+
+    const [newBooking , setBooking] = useState<NewBooking>({
         booking_id : bookingsData.length + 1,
         room_id : bookingsData.length +1,
         client_id : bookingsData.length + 1,
-        order_date: (curr.getMonth() + 1) + '/' + (curr.getDate() ) + '/' + (curr.getFullYear()),
+        order_date: new Date(),
         check_in_date : null,
         check_out_date: null,
         status: 'Pending',
         special_request: ''
     })
 
-    const handleSubmit = (event) => {
+    const handleSubmit = (event : SubmitEvent) => {
         event.preventDefault();
         if(newBooking.check_in_date && newBooking.check_out_date && newBooking.check_in_date < newBooking.check_out_date){
-            dispatch(AddBookingsThunk({newBooking}))
+            //create new Booking.
+            dispatch(AddBookingsThunk(newBooking))
             if(bookingsStatus === 'fulfilled'){
                 navigate("/bookings");
             }

@@ -30,6 +30,7 @@ export const BookingsDetail = (booking : Booking) => {
         };
     }
 
-    return <Page></Page>
-        {/* <Button $backgroundcolor="" onClick={handleDelete}>Borrar</Button> */}
+    return <Page $alignment="">
+        <Button $backgroundcolor="" onClick={handleDelete}>Borrar</Button>
+    </Page>
 }

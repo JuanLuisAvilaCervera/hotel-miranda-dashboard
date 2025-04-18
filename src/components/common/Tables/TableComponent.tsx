@@ -2,15 +2,15 @@ import React, {  useEffect, useState } from "react";
 import Booking from "../../../interfaces/bookingInterface";
 import { ProfilePic, Tables } from "./Table";
 
-const TableComponent = (data : Booking[]) => {
+const TableComponent = ({data} : {data: any}) => {
 
     
 
-    const [columns , setColumns] = useState<string[]>([]);
+    const [columns , setColumns] = useState<Array <keyof Booking>>([]);
     const [page , setPage] = useState<number>(0);
 
 
-    useEffect(() => {data ? setColumns([...Object.keys(data[0])]) : setColumns([])} , [data])
+    useEffect(() => {data ? setColumns(data.keys()) : setColumns([])} , [data])
 
    const generateColumnName = (column : string) =>{
 
@@ -36,13 +36,14 @@ const TableComponent = (data : Booking[]) => {
                 </tr>
             </thead>
             <tbody>
-                    {data.slice(page*10, page*10 +10).map((row : Booking , key) => {
+                    {data.slice(page*10, page*10 +10).map((row : any) => {
 
-                            return <tr key={key}>
+                            return <tr>
                                 {
-                                    columns.map(( column , columnKey) => {
-
-                                        return column == "photo" ? <td key={columnKey}><ProfilePic src={String(row[column])} alt=""/></td> : <td key={columnKey}>{ String(row[column]).substring(0,100)}</td>
+                                    columns.map((column : string) => {
+                                        return column == "photo" ?
+                                         <td><ProfilePic src={String(row[column])} alt=""/></td> :
+                                          <td>{ String(row[column]).substring(0,100)}</td>
                                         
                                     })
                                 }

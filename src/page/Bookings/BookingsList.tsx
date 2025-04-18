@@ -76,10 +76,10 @@ const BookingsPage = () => {
     return <Page $alignment="">
             <TableNav $justify={"space-between"}>
             <UnorderedList>
-                <NavList $active={active === "all" ? "active" : ""}  onClick = {  () => setData(() =>changeActive("all"))}>All Bookings</NavList>
-                <NavList $active={active === "checkin" ? "active" : ""} onClick = {  () => setData(changeActive("checkin"))}>Checking In</NavList>
-                <NavList $active={active === "checkout" ? "active" : ""}  onClick = {  () => setData(changeActive("checkout"))}>Checking Out</NavList>
-                <NavList $active={active === "progress" ? "active" : ""} onClick = {  () => setData(changeActive("progress"))}>In Progress</NavList>
+                <NavList $active={active === "all" ? "active" : ""}  onClick = {  () => setList(() =>changeActive("all"))}>All Bookings</NavList>
+                <NavList $active={active === "checkin" ? "active" : ""} onClick = {  () => setList(changeActive("checkin"))}>Checking In</NavList>
+                <NavList $active={active === "checkout" ? "active" : ""}  onClick = {  () => setList(changeActive("checkout"))}>Checking Out</NavList>
+                <NavList $active={active === "progress" ? "active" : ""} onClick = {  () => setList(changeActive("progress"))}>In Progress</NavList>
             </UnorderedList>
             <Button $backgroundcolor="" onClick={ () => navigate("/newbookings")}>Add Booking</Button>
             <OrderSelectDiv>
