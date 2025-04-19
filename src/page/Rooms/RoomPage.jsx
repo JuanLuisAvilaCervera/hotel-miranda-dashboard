@@ -63,7 +63,7 @@ const RoomPage = () => {
                     </OrderSelect>
                 </OrderSelectDiv>
             </TableNav>
-            <Table data={data}/>
+            <Table data={data} dataType={"rooms"}/>
             </Page>;
 }
 export default RoomPage;

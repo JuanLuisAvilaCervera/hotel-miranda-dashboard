@@ -14,6 +14,7 @@ import Layout from './components/Layout/Layout.jsx';
 import LoginPage from './page/Login/LoginPage';
 import UsersPage from './page/Users/UsersPage';
 import { BookingsAdd } from './page/Bookings/BookingsAdd.jsx'
+import { BookingsDetail } from './page/Bookings/BookingDetails.jsx'
 
 
 
@@ -32,6 +33,7 @@ createRoot(document.getElementById('root')).render(
               <Route path="/rooms" element={<RoomPage />}/>
               <Route path='/bookings' element={<BookingsList />}/>
               <Route path='/newbookings' element={<BookingsAdd />}/>
+              <Route path='/bookingsdetail' element={<BookingsDetail />}/>
               <Route path='/contacts' element={<ContactsPage />}/>
               <Route path= '/users' element={<UsersPage/>}/>
             </Route>

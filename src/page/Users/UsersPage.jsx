@@ -12,8 +12,7 @@ const UsersPage = () => {
 
     const [order , setOrder] = useState("start_date");
     const [active, setActive] = useState("all")
-    const [users, setUsers] = useState([{}])
-    const [data , setData] = useState(users);
+    const [data , setData] = useState([]);
 
     const dispatch = useDispatch();
 
@@ -24,25 +23,22 @@ const UsersPage = () => {
         if(usersStatus === "idle"){
             dispatch(UserThunk());
         }else if(usersStatus === 'fulfilled'){
-            setUsers(usersData)
+            setData(usersData)
         }else if(usersStatus === 'rejected'){
             console.log("Error loading users")
         }
     }, [dispatch, usersStatus])
 
-    useEffect(() => {
-        setData(users);
-    }, [users])
 
     const filterActive = (value) => {
-        return users.filter((user) => user.active === value) || [];
+        return usersData.filter((user) => user.active === value) || [];
     }
 
     const changeActive = (listName) => {
             setActive(listName);
             switch(listName){
                 case "all":
-                    setData(users);
+                    setData(usersData);
                     break;
                 case "active":
                     setData(filterActive(true));
@@ -51,13 +47,10 @@ const UsersPage = () => {
                     setData(filterActive(false));
                     break;
                 default:
-                    setData(users);
+                    setData(usersData);
                     break;
             }
         }
-
-
-    useEffect(() => { handleOrder()}, [order, active])
 
     const handleOrder = () => {
         setData([...data].sort((a,b) => {
@@ -75,6 +68,7 @@ const UsersPage = () => {
         }));
     }
 
+    useEffect(() => { handleOrder()}, [order, active])
 
     return <Page>
             <TableNav $justify={"space-between"}>
@@ -94,7 +88,8 @@ const UsersPage = () => {
             </TableNav>
                    
                 
-                <Table data={data}/>
+            {data.length > 0 ? <Table data={data} dataType={"bookings"}/> : <h1>Loading...</h1>}
+
             </Page>;
 }
 export default UsersPage;

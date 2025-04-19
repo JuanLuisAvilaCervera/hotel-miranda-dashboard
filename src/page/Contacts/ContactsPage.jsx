@@ -41,7 +41,7 @@ const ContactsPage = () => {
                 <NavList $active={active === "all" ? "active" : ""}  onClick = {  () => changeActive("all")}>All Contacts</NavList>
                 <NavList $active={active === "archived" ? "active" : ""} onClick = {  () => changeActive("archived")}>Archived</NavList>
             </UnorderedList>
-            <Table data={data}/>
+            <Table data={data} dataType={"contacts"}/>
             </Page>;
 }
 
