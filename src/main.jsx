@@ -15,6 +15,7 @@ import LoginPage from './page/Login/LoginPage';
 import UsersPage from './page/Users/UsersPage';
 import { BookingsAdd } from './page/Bookings/BookingsAdd.jsx'
 import { BookingsDetail } from './page/Bookings/BookingDetails.jsx'
+import { BookingUpdate } from './page/Bookings/BookingUpdate.jsx'
 
 
 
@@ -31,9 +32,13 @@ createRoot(document.getElementById('root')).render(
 
               <Route path="/dashboard" element={<DashboardPage />}/>
               <Route path="/rooms" element={<RoomPage />}/>
+
+
               <Route path='/bookings' element={<BookingsList />}/>
               <Route path='/newbookings' element={<BookingsAdd />}/>
               <Route path='/bookingsdetail' element={<BookingsDetail />}/>
+              <Route path='/updateBooking' element={<BookingUpdate/>}/>
+
               <Route path='/contacts' element={<ContactsPage />}/>
               <Route path= '/users' element={<UsersPage/>}/>
             </Route>
