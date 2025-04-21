@@ -6,3 +6,9 @@ export const Page = styled.div`
     padding: 2rem;
     text-align: ${(props) => props.$alignment ? props.$alignment : "left"};
 `
+
+export const Container = styled.div`
+    border-radius: 18px;
+    border: none;
+    background-color: white;
+`

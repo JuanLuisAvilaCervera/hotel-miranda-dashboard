@@ -22,6 +22,7 @@ const BookingsPage = () => {
     const bookingsStatus = useSelector(getBookingsStatus);
 
     useEffect( () => {
+        console.log(bookingsStatus)
         if(bookingsStatus === "idle"){
             dispatch(BookingsThunk());
         }else if(bookingsStatus === "fulfilled"){
@@ -29,6 +30,7 @@ const BookingsPage = () => {
         }else if(bookingsStatus === "rejected"){
             console.log("Error loading bookings")
         }
+
     }, [dispatch , bookingsStatus , bookingsData])
 
 
@@ -103,7 +105,7 @@ const BookingsPage = () => {
             </OrderSelectDiv>
             </TableNav>
             
-            {data.length > 0 ? <Table data={data} dataType={"bookings"}/> : <h1>Loading...</h1>}
+            {data.length > 0 || bookingsStatus === "fulfilled" ? data.length > 0 ? <Table data={data} dataType={"bookings"}/> : <h1>No bookings found</h1> : <h1>Loading...</h1>}
             </Page>;
 }
 

@@ -50,8 +50,8 @@ export const BookingsSlice = createSlice({
             state.status = 'pending'
         })
         .addCase(DeleteBookingThunk.fulfilled, (state, action) =>{
-            state.status = 'fulfilled';
-            state.data = [...state.data.filter( (booking) => booking.booking_id !== action.payload)];
+            console.log(action.payload)
+            state.data = state.data.filter( (booking) => booking.booking_id !== action.payload);
         })
         .addCase(DeleteBookingThunk.rejected, (state,action) => {
             state.status = 'rejected';

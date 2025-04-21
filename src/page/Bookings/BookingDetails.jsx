@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { DeleteBookingThunk } from "./BookingThunk";
 import { getBookingsStatus } from "./BookingSlice";
 import { useEffect, useState } from "react";
+import { ConfirmModal } from "../../components/common/Forms/Modal";
 
 export const BookingsDetail = () => {
 
@@ -15,25 +16,38 @@ export const BookingsDetail = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const id = booking.booking_id;
-    const [updateBooking , setBooking] = useState({...booking})
-
-    
-
-    useEffect(() => console.log(updateBooking), [updateBooking])
+    const [deleteModal , setModal] = useState("none");
 
     const handleDelete = () => {
 
-        console.log(id)
+        console.log(booking.booking_id)
 
-        dispatch(DeleteBookingThunk(id))
+        const booking_id = booking.booking_id;
+
+        dispatch(DeleteBookingThunk({booking_id}))
+
+        console.log(bookingsStatus)
 
         if(bookingsStatus === 'fulfilled'){
             navigate("/bookings")
         };
     }
 
+    
+
     return <Page>
-        <Button onClick={handleDelete}>Borrar</Button>
+
+        <div>
+            <p>Booking id: {booking.booking_id}</p>
+            <p>Order date: {booking.order_date}</p>
+
+        </div>
+        <Button onClick={() => {setModal("block")}}>Borrar</Button>
+        <ConfirmModal $display={deleteModal}>
+            <p>Are you sure you want to delete booking {booking.booking_id} ?</p>
+            <hr />
+            <Button onClick={ () => setModal("none")} color={"white"} $backgroundcolor={"red"}>Cancel</Button>
+            <Button onClick={handleDelete}>Delete</Button>
+        </ConfirmModal>
     </Page>
 }

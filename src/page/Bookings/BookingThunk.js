@@ -8,10 +8,8 @@ const BookingsThunk = createAsyncThunk("bookings/getBookings", async () =>
         await delay(200);
         const response = await fetch("/Bookings.json");
         const data = await response.json();
-
-         return data;
-    }
-)
+        return data;
+})
 
 export const AddBookingsThunk = createAsyncThunk("bookings/addBookings", async ({newBooking}) =>
 {
@@ -30,6 +28,7 @@ export const UpdateBookingThunk = createAsyncThunk("bookings/updateBooking", asy
 
 export const DeleteBookingThunk = createAsyncThunk("bookings/deleteBooking", async({booking_id}) => {
     await delay(200);
+    console.log(booking_id)
     return booking_id;
 })
 
