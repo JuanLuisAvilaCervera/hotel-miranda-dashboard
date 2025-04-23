@@ -17,7 +17,8 @@ export const FormInput = styled.input`
     border: solid 1px rgb(205, 205, 205);
     background-color: #F8F8F8;
     margin-bottom: 1rem;
-    width: 15rem;
+    min-width: 3rem;
+    padding: 0.2rem 1rem;
 `
 export const FormTextArea = styled.textarea`
     border-radius: 5px;
