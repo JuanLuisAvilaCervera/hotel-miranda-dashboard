@@ -1,5 +1,6 @@
 import { AsyncThunk, createAsyncThunk } from "@reduxjs/toolkit";
 import Booking from "../../interfaces/bookingInterface";
+import { update } from "cypress/types/lodash";
 
 const delay = (ms: number) => new Promise(  resolve => setTimeout(resolve , ms));
 
@@ -22,13 +23,11 @@ export const AddBookingsThunk= createAsyncThunk<Booking, Booking>("bookings/addB
 
 //{booking_id : number , updatedBooking}
 
-export const UpdateBookingThunk = createAsyncThunk<{id: number , updatedBooking: Booking},{booking_id: number, updatedBooking: Booking}>("bookings/updateBooking", async({booking_id , updatedBooking}) =>
+export const UpdateBookingThunk = createAsyncThunk< Booking,Booking>("bookings/updateBooking", async(updatedBooking) =>
 {
     await delay(200);
-    return {
-        id : booking_id , 
-        updatedBooking: updatedBooking
-    }
+    localStorage.setItem('selectedBooking', JSON.stringify(updatedBooking));
+    return updatedBooking;
 })
 
 export const DeleteBookingThunk = createAsyncThunk<number, {booking_id : number}>("bookings/deleteBooking", async({booking_id}) => {
