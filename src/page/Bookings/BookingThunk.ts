@@ -1,7 +1,7 @@
 import { AsyncThunk, createAsyncThunk } from "@reduxjs/toolkit";
 import Booking from "../../interfaces/bookingInterface";
 
-const delay = (ms) => new Promise(  resolve => setTimeout(resolve , ms));
+const delay = (ms: number) => new Promise(  resolve => setTimeout(resolve , ms));
 
 
 const BookingsThunk = createAsyncThunk("bookings/getBookings", async () => 
@@ -31,7 +31,7 @@ export const UpdateBookingThunk = createAsyncThunk<{id: number , updatedBooking:
     }
 })
 
-export const DeleteBookingThunk = createAsyncThunk<number, number>("bookings/deleteBooking", async(booking_id) => {
+export const DeleteBookingThunk = createAsyncThunk<number, {booking_id : number}>("bookings/deleteBooking", async({booking_id}) => {
     await delay(200);
     return booking_id;
 })
