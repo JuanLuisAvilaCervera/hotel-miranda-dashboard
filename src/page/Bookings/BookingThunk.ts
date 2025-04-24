@@ -36,4 +36,5 @@ export const DeleteBookingThunk = createAsyncThunk<number, number>("bookings/del
     return booking_id;
 })
 
+
 export default BookingsThunk;

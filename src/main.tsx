@@ -1,4 +1,4 @@
-import { StrictMode, useState } from 'react'
+import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router'
 import { Provider } from 'react-redux'
@@ -10,16 +10,14 @@ import DashboardPage from './page/Dashboard/DashboardPage'
 import RoomPage from './page/Rooms/RoomPage'
 import BookingsList from './page/Bookings/BookingsList'
 import ContactsPage from './page/Contacts/ContactsPage'
-import Layout from './components/Layout/Layout';
 import LoginPage from './page/Login/LoginPage';
 import UsersPage from './page/Users/UsersPage';
 import { BookingsAdd } from './page/Bookings/BookingsAdd'
+import Layout from './components/Layout/Layout'
 
 
 
-
-
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>
     <Provider store={Store}>
       <BrowserRouter>
@@ -27,7 +25,6 @@ createRoot(document.getElementById('root')).render(
           <Route path='/' element={<LoginPage />} />
           <Route element={<PrivateRoute />} >
             <Route element={<Layout />}>
-
               <Route path="/dashboard" element={<DashboardPage />}/>
               <Route path="/rooms" element={<RoomPage />}/>
               <Route path='/bookings' element={<BookingsList />}/>
@@ -38,6 +35,6 @@ createRoot(document.getElementById('root')).render(
           </Route>
         </Routes>
       </BrowserRouter>
-    </Provider>
-  </StrictMode>,
+     </Provider>
+  </StrictMode>
 )

@@ -6,18 +6,19 @@ import Logo from "../../components/Layout/Logo";
 import { useDispatch, useSelector } from "react-redux";
 import { getLoginData, getLoginStatus } from "./LoginSlice";
 import LogInThunk, { getLogin } from "./LoginThunk";
+import { AppDispatch } from "../../app/store";
 
 const LoginPage = () => {
 
     const [user , setUser ] = useState('');
     const [password , setPassword] = useState('');
 
-    const [login , setLogin] = useState("");
+    const [login , setLogin] = useState<boolean>(false);
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
 
-    const loginStatus = useSelector(getLoginStatus);
-    const loginData = useSelector(getLoginData);
+    const loginStatus : string = useSelector(getLoginStatus);
+    const loginData : boolean = useSelector(getLoginData);
 
 
     useEffect( () => {
@@ -25,12 +26,7 @@ const LoginPage = () => {
             dispatch(getLogin());
         }else if(loginStatus === "fulfilled"){
 
-            if(loginData !== '' && loginData != null){
-                localStorage.setItem('login', loginData)
-                setLogin(true)
-            }else{
-                setLogin("")
-            }
+            setLogin(loginData)
 
         }else if(loginStatus === "rejected"){
             console.log("Error loading bookings")
@@ -38,21 +34,21 @@ const LoginPage = () => {
     }, [dispatch , loginStatus , loginData])
     
 
-    const handleSubmit = (event) => {
+    const handleSubmit = (event : React.SyntheticEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         
         if(user !== '' && password !== ''){
             dispatch(LogInThunk({user , password}))
             if(loginStatus === 'fulfilled'){
-                setLogin(localStorage.getItem('login'))
+                setLogin(loginData)
             }
         }
     }
    
 
     
-    return login !== "" ? 
+    return login ? 
     <>
         <Navigate to="/dashboard"/>
     </> : <>
@@ -69,7 +65,7 @@ const LoginPage = () => {
                         Password:
                         <LoginInput type="password" name="password" onChange={(e) => setPassword(e.target.value)} required/>
                     </label>
-                    <InputButton type="submit" name="submit" value="Log In"/>
+                    <InputButton $backgroundcolor="" type="submit" name="submit" value="Log In"/>
                 </form>
                 
             </LoginContainer>

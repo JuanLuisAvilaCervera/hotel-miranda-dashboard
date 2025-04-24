@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
-import burguer from "../../../resources/img/Layout/burguer-menu.png";
+// import burguer from "../../../resources/img/Layout/burguer-menu.png";
 import { CiMail } from "react-icons/ci";
 import { CiBellOn } from "react-icons/ci";
 import { CiLogout } from "react-icons/ci";
 
 
-import { Burguer, MiddleSpace,  Title,  TopContainer } from "./TopMenu.js";
+
+import { Burguer, MiddleSpace,  Title,  TopContainer } from "./TopMenuStyles";
 import { IconContext } from "react-icons";
 import { useNavigate } from "react-router";
 
-const TopMenu  = ({pagetitle, toggle}) => {
+const TopMenu  = ({pagetitle , toggle} : {pagetitle : string , toggle : Function}) => {
 
     const navigate = useNavigate();
 
@@ -31,7 +32,7 @@ const TopMenu  = ({pagetitle, toggle}) => {
 
     return(
         <TopContainer>
-            <Burguer src={burguer} onClick={() => {toggle()}}/>
+            <Burguer onClick={() => {toggle()}}/>
             <Title>{pagetitle}</Title>
             <MiddleSpace />
             <IconContext.Provider value={{size: "2rem"}}>

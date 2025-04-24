@@ -1,8 +1,8 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { useNavigate } from "react-router";
-import {ListElement} from "./LeftMenu/LeftMenu";
+import {ListElement} from "./LeftMenu/LeftMenuStyles";
 
-const NavList = ({page, content, active , activate}) => {
+const NavList = ({page, content, active , activate} : {page : string, content : ReactNode , active : "" | "active" , activate :Function}) => {
 
     const navigate = useNavigate();
 

@@ -1,16 +1,24 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, Slice } from "@reduxjs/toolkit";
 import UsersThunk from "./UserThunk";
+import User from "../../interfaces/userInterface";
+import { RootState } from "../../app/store";
 
- 
+interface userSliceInitialState{
+    status : string,
+    data: User[],
+    error: string | undefined |null,
 
-export const UsersSlice = createSlice({
+}
+
+export const UsersSlice : Slice = createSlice({
 
     name: 'users',
     initialState: {
         status: 'idle',
         data: [],
         error: null
-    },
+    } as userSliceInitialState,
+    reducers: {},
     extraReducers: (builder) => {
         builder
         .addCase(UsersThunk.pending, (state) => {
@@ -28,6 +36,6 @@ export const UsersSlice = createSlice({
     
 })
 
-export const getUsersData = (state) => state.users.data
-export const getUsersStatus = (state) => state.users.status
-export const getUsersError = (state) => state.users.error
+export const getUsersData = (state : RootState) => state.users.data
+export const getUsersStatus = (state : RootState) => state.users.status
+export const getUsersError = (state : RootState) => state.users.error

@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { LeftContainer , UserPortrait, Correo } from "./LeftMenu.ts";
-import Logo from "../Logo.tsx";
+import { LeftContainer , UserPortrait, Correo } from "./LeftMenuStyles.js";
+import Logo from "../Logo.js";
+import { UnorderedList } from "../../common/Tables/Table.js";
+import NavList from "../NavList.js";
+import { Portrait } from "../../common/commonStyles.js";
 import { Button } from "../../common/Buttons.js";
-import NavList from "../NavList.tsx";
-import { UnorderedList } from "../../common/Tables/Table.ts";
-import { Portrait } from "../../common/commonStyles.ts";
 
-const LeftMenu  = ({visibility, handleTitle}) => {
+
+const LeftMenu  = ({visibility, handleTitle} : {visibility : boolean , handleTitle : Function}) => {
 
 
     const [active , setActive] = useState("Dashboard");

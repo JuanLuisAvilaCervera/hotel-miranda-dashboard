@@ -36,14 +36,14 @@ const TableComponent = ({data} : {data: any}) => {
                 </tr>
             </thead>
             <tbody>
-                    {data.slice(page*10, page*10 +10).map((row : any) => {
+                    {data.slice(page*10, page*10 +10).map((row : any , key : number) => {
 
-                            return <tr>
+                            return <tr key={key}>
                                 {
-                                    columns.map((column : string) => {
+                                    columns.map((column : string , columnKey : number) => {
                                         return column == "photo" ?
-                                         <td><ProfilePic src={String(row[column])} alt=""/></td> :
-                                          <td>{ String(row[column]).substring(0,100)}</td>
+                                         <td key={columnKey}><ProfilePic src={String(row[column])} alt=""/></td> :
+                                          <td key={columnKey}>{ String(row[column]).substring(0,100)}</td>
                                         
                                     })
                                 }

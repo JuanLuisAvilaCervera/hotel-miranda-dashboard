@@ -8,7 +8,6 @@ import { AddBookingsThunk } from "./BookingThunk";
 import { getBookingsData, getBookingsStatus } from "./BookingSlice";
 import Booking from "../../interfaces/bookingInterface";
 import { AppDispatch } from "../../app/store";
-import { W } from "react-router/dist/development/fog-of-war-CGNKxM4z";
 
 export const BookingsAdd = () => {
 
