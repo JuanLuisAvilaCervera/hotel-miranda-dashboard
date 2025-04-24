@@ -35,22 +35,28 @@ const BookingsPage = () => {
         }
     }, [dispatch , bookingsStatus , bookingsData])
 
-    const filterBooking = (listFilter : string) => bookingList.filter((booking : Booking) => booking.status === listFilter || []);
 
-    const changeActive = (listName : string) => {
+    const filterBooking = (listFilter : string) => bookingList.filter((booking : Booking) => booking.status === listFilter || []);
+        const changeActive = (listName : string) => {
         setActive(listName);
-        switch(listName){
-            case "all":
-                return bookingList;
-            case "checkin":
-                return (filterBooking("Check In"));
-            case "checkout":
-                return (filterBooking("Check Out"));
-            case "progress":
-                return (filterBooking("In Progress"));
-            default:
-                return bookingList;
-        }
+            switch(listName){
+                case "all":
+                    setList(bookingsData);
+                    break;
+                case "checkin":
+                    setList(filterBooking("Check In"));
+                    break;
+                case "checkout":
+                    setList(filterBooking("Check Out"))
+                    break;
+                case "progress":
+                    setList(filterBooking("In Progress"));
+                    break;
+                default:
+                    setList(bookingsData);
+                    break;
+            }
+        
     }
 
     const handleOrder = () => {
@@ -72,14 +78,16 @@ const BookingsPage = () => {
         }));
     }
 
+    useEffect(() => { handleOrder()}, [order, active])
+
 
     return <Page $alignment="">
             <TableNav $justify={"space-between"}>
             <UnorderedList>
-                <NavList $active={active === "all" ? "active" : ""}  onClick = {  () => setList(() =>changeActive("all"))}>All Bookings</NavList>
-                <NavList $active={active === "checkin" ? "active" : ""} onClick = {  () => setList(changeActive("checkin"))}>Checking In</NavList>
-                <NavList $active={active === "checkout" ? "active" : ""}  onClick = {  () => setList(changeActive("checkout"))}>Checking Out</NavList>
-                <NavList $active={active === "progress" ? "active" : ""} onClick = {  () => setList(changeActive("progress"))}>In Progress</NavList>
+                <NavList $active={active === "all" ? "active" : ""}  onClick = {  () =>changeActive("all")}>All Bookings</NavList>
+                <NavList $active={active === "checkin" ? "active" : ""} onClick = {  () => changeActive("checkin")}>Checking In</NavList>
+                <NavList $active={active === "checkout" ? "active" : ""}  onClick = {  () => changeActive("checkout")}>Checking Out</NavList>
+                <NavList $active={active === "progress" ? "active" : ""} onClick = {  () => changeActive("progress")}>In Progress</NavList>
             </UnorderedList>
             <Button $backgroundcolor="" onClick={ () => navigate("/newbookings")}>Add Booking</Button>
             <OrderSelectDiv>
@@ -94,7 +102,7 @@ const BookingsPage = () => {
             </OrderSelectDiv>
             </TableNav>
             
-            {bookingList.length > 0 ? <TableComponent data={bookingList}/> : <h1>Loading...</h1>}
+            {bookingList.length > 0 || bookingsStatus === "fulfilled" ? bookingList.length > 0 ? <TableComponent data={bookingList}/> : <h1>No bookings found</h1> : <h1>Loading...</h1>}
             </Page>;
 }
 
