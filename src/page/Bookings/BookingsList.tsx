@@ -10,6 +10,7 @@ import { AppDispatch, RootState, useAppSelector } from "../../app/store.js";
 import Booking from "../../interfaces/bookingInterface.js";
 import { getBookingsData, getBookingsStatus } from "./BookingSlice.js";
 import TableComponent from "../../components/common/Tables/TableComponent.js";
+import { YMDtoMDY , MDYtoYMD } from "../../global/dateFormating.js";
 
 
 
@@ -62,16 +63,16 @@ const BookingsPage = () => {
     }
 
     const handleOrder = () => {
-        return([...bookingList].sort((a : any,b : any) => {
+        setList([...bookingList].sort((a : Booking,b : Booking) => {
 
 
             switch(order){
                 case "order_date":
-                    return Number(new Date(b.order_date)) - Number(new Date(a.order_date));
+                    return Number(new Date(MDYtoYMD(b.order_date))) - Number(new Date(MDYtoYMD(a.order_date)));
                 case "check_in_date":
-                    return Number(new Date(b.check_in_date)) - Number(new Date(a.check_in_date));
+                    return Number(new Date(MDYtoYMD(b.check_in_date))) - Number(new Date(MDYtoYMD(a.check_in_date)));
                 case "check_out_date":
-                    return Number(new Date(b.check_out_date)) - Number(new Date(a.check_out_date));
+                    return Number(new Date(MDYtoYMD(b.check_out_date))) - Number(new Date(MDYtoYMD(a.check_out_date)));
                 case "guest":
                     return a.client_id - b.client_id; // CHANGE
                 default:
@@ -82,7 +83,7 @@ const BookingsPage = () => {
 
    
 
-    useEffect(() => { handleOrder()}, [order, active])
+    useEffect(() => { handleOrder() ; console.log(order)}, [order, active])
 
 
     return <Page $alignment="">
@@ -112,78 +113,3 @@ const BookingsPage = () => {
 
 export default BookingsPage;
 
-
-
-// const BookingsPage = () => {
-
-
-//     const changeActive = (listName) => {
-//         setActive(listName);
-//             switch(listName){
-//                 case "all":
-//                     setData(bookingsData);
-//                     break;
-//                 case "checkin":
-//                     setData(filterBooking("Check In"));
-//                     break;
-//                 case "checkout":
-//                     setData(filterBooking("Check Out"))
-//                     break;
-//                 case "progress":
-//                     setData(filterBooking("In Progress"));
-//                     break;
-//                 default:
-//                     setData(users);
-//                     break;
-//             }
-        
-//     }
-
-//     const handleOrder = () => {
-//         setData([...data].sort((a,b) => {
-
-//             switch(order){
-//                 case "order_date":
-//                     return new Date(b.order_date) - new Date(a.order_date);
-//                 case "check_in_date":
-//                     return new Date(b.check_in_date) - new Date(a.check_in_date);
-//                 case "check_out_date":
-//                     return new Date(b.check_out_date) - new Date(a.check_out_date);
-//                 case "guest":
-//                     return a.client_id - b.client_id; // CHANGE
-//                 default:
-//                     return 0;
-//             }
-//         }));
-//     }
-
-//     useEffect(() => { handleOrder()}, [order, active])
-
-
-
-//     return <Page>
-//             <TableNav $justify={"space-between"}>
-//             <UnorderedList>
-//                 <NavList $active={active === "all" ? "active" : ""}  onClick = {  () =>changeActive("all")}>All Bookings</NavList>
-//                 <NavList $active={active === "checkin" ? "active" : ""} onClick = {  () => changeActive("checkin")}>Checking In</NavList>
-//                 <NavList $active={active === "checkout" ? "active" : ""}  onClick = {  () => changeActive("checkout")}>Checking Out</NavList>
-//                 <NavList $active={active === "progress" ? "active" : ""} onClick = {  () => changeActive("progress")}>In Progress</NavList>
-//             </UnorderedList>
-//             <Button onClick={ () => navigate("/newbookings")}>Add Booking</Button>
-//             <OrderSelectDiv>
-//                     <OrderSelect
-//                 value={order}
-//                 onChange={(e) => {setOrder(e.target.value)}}>
-//                 <option value="order_date"> Newest </option>
-//                 <option value="check_in_date"> Check In </option>
-//                 <option value="check_out_date"> Check Out </option>
-//                 <option value="guest"> Guest </option>
-//                 </OrderSelect>
-//             </OrderSelectDiv>
-//             </TableNav>
-            
-//             {data.length > 0 || bookingsStatus === "fulfilled" ? data.length > 0 ? <Table data={data} dataType={"bookings"}/> : <h1>No bookings found</h1> : <h1>Loading...</h1>}
-//             </Page>;
-// }
-
-// export default BookingsPage;
