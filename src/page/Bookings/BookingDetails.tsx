@@ -7,6 +7,7 @@ import { DeleteBookingThunk } from "./BookingThunk";
 import Booking from "../../interfaces/bookingInterface";
 import { useEffect, useState } from "react";
 import { AppDispatch, RootState } from "../../app/store";
+import { Container, DetailNav, Details } from "../../components/common/details";
 
 export const BookingsDetail = (booking : Booking) => {
 
