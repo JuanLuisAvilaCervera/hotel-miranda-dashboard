@@ -14,6 +14,7 @@ import LoginPage from './page/Login/LoginPage';
 import UsersPage from './page/Users/UsersPage';
 import { BookingsAdd } from './page/Bookings/BookingsAdd'
 import Layout from './components/Layout/Layout'
+import { BookingsDetail } from './page/Bookings/BookingDetails'
 
 
 
@@ -28,6 +29,9 @@ createRoot(document.getElementById('root') as HTMLElement).render(
               <Route path="/dashboard" element={<DashboardPage />}/>
               <Route path="/rooms" element={<RoomPage />}/>
               <Route path='/bookings' element={<BookingsList />}/>
+              <Route path='/bookingsdetail' element={<BookingsDetail />}/>
+              <Route path='/bookingsupdate'/>
+
               <Route path='/newbookings' element={<BookingsAdd />}/>
               <Route path='/contacts' element={<ContactsPage />}/>
               <Route path= '/users' element={<UsersPage/>}/>

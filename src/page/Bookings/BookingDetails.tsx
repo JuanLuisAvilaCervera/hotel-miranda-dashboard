@@ -14,7 +14,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import { ConfigModal, ConfirmModal, ModalOption } from "../../components/common/Forms/Modal";
 
 
-export const BookingsDetail = (booking : Booking) => {
+export const BookingsDetail = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch<AppDispatch>();
@@ -22,11 +22,11 @@ export const BookingsDetail = (booking : Booking) => {
     const bookingsData = useSelector((state : RootState) => state.bookings.data);
     const bookingsStatus = useSelector((state : RootState) => state.bookings.status);
 
-    const [updateBooking , setBooking] = useState({...booking})
-
+    const booking = JSON.parse(localStorage.getItem('selectedBooking') || "")
 
     const [deleteModal , setModal] = useState("none");
     const [displayConfig , setConfig] = useState("none");
+
 
     const handleDelete = () => {
 
@@ -45,7 +45,7 @@ export const BookingsDetail = (booking : Booking) => {
 
     
 
-    useEffect(() => console.log(updateBooking), [updateBooking])
+    useEffect(() => console.log(booking), [booking])
 
     
     return <Page $alignment="">
@@ -81,7 +81,7 @@ export const BookingsDetail = (booking : Booking) => {
                     <p>Check in: {booking.check_in_date}</p>
                     <p>Check out: {booking.check_out_date}</p>
                     <p>Status : {booking.status}</p>
-                    <p>Special requests: {booking.special_request}</p>
+                    <p>Special requests: {booking.special_request.substring(0,100)}</p>
                 </div>
                 
 
@@ -99,55 +99,3 @@ export const BookingsDetail = (booking : Booking) => {
         </ConfirmModal>
         </Page>
 }
-
-// import { Container, DetailNav, Details,  PhotoDetails, RoomImage } from "../../components/common/details";
-// import { Button } from "../../components/common/Buttons";
-// import { useNavigate } from "react-router";
-// import { useDispatch, useSelector } from "react-redux";
-// import { DeleteBookingThunk } from "./BookingThunk";
-// import { getBookingsStatus } from "./BookingSlice";
-// import { useState } from "react";
-// import { ConfigModal, ConfirmModal, ModalOption } from "../../components/common/Forms/Modal";
-
-// import example from "../../resources/img/Details/example.jpg";
-// import BackArrowIcon from "../../resources/img/Layout/search.png"
-// import { Page } from "../../components/common/page";
-// import { IconContext } from "react-icons";
-// import { StyledIcon } from "../../components/common/icons";
-// import { CiMenuKebab } from "react-icons/ci";
-
-// import { FaArrowLeft } from "react-icons/fa";
-
-
-
-// export const BookingsDetail = () => {
-
-//     const booking = JSON.parse(localStorage.getItem('selectedBooking'))
-
-//     const bookingsStatus = useSelector(getBookingsStatus)
-
-//     const navigate = useNavigate();
-//     const dispatch = useDispatch();
-
-//     const [deleteModal , setModal] = useState("none");
-//     const [displayConfig , setConfig] = useState("none");
-
-//     const handleDelete = () => {
-
-//         console.log(booking.booking_id)
-
-//         const booking_id = booking.booking_id;
-
-//         dispatch(DeleteBookingThunk({booking_id}))
-
-//         console.log(bookingsStatus)
-
-//         if(bookingsStatus === 'fulfilled'){
-//             navigate("/bookings")
-//         };
-//     }
-
-    
-
-    
-// }
