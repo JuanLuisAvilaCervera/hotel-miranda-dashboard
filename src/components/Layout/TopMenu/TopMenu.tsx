@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import burguer from "../../../resources/img/Layout/burguer-menu.png";
 import { CiMail } from "react-icons/ci";
 import { CiBellOn } from "react-icons/ci";
 import { CiLogout } from "react-icons/ci";
