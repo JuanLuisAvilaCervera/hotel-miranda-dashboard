@@ -47,7 +47,9 @@ export const BookingsSlice : Slice = createSlice({
         })
         .addCase(UpdateBookingThunk.fulfilled, (state, action) =>{
             state.status = 'fulfilled';
-            state.data[action.payload.id] = action.payload.updatedBooking;
+            localStorage.setItem('selectedBooking', JSON.stringify(action.payload))
+            const id = state.data.findIndex((booking) => booking.booking_id === action.payload.booking_id);
+            state.data[id] = action.payload;
         })
         .addCase(UpdateBookingThunk.rejected, (state,action) => {
             state.status = 'rejected';
