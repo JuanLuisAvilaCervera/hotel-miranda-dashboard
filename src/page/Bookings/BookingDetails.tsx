@@ -7,7 +7,12 @@ import { DeleteBookingThunk } from "./BookingThunk";
 import Booking from "../../interfaces/bookingInterface";
 import { useEffect, useState } from "react";
 import { AppDispatch, RootState } from "../../app/store";
-import { Container, DetailNav, Details } from "../../components/common/details";
+import { Container, DetailNav, Details, PhotoDetails, RoomImage } from "../../components/common/details";
+import { StyledIcon } from "../../components/common/icons";
+import { CiMenuKebab } from "react-icons/ci";
+import { FaArrowLeft } from "react-icons/fa";
+import { ConfigModal, ConfirmModal, ModalOption } from "../../components/common/Forms/Modal";
+
 
 export const BookingsDetail = (booking : Booking) => {
 
@@ -17,7 +22,6 @@ export const BookingsDetail = (booking : Booking) => {
     const bookingsData = useSelector((state : RootState) => state.bookings.data);
     const bookingsStatus = useSelector((state : RootState) => state.bookings.status);
 
-    const id : number = booking.booking_id;
     const [updateBooking , setBooking] = useState({...booking})
 
 
@@ -50,10 +54,10 @@ export const BookingsDetail = (booking : Booking) => {
             <Details>
                 
                 <DetailNav>
-                    <StyledIcon>
+                    <StyledIcon className="">
                         <FaArrowLeft onClick={ () => navigate("/bookings")}/>
                     </StyledIcon>
-                    <StyledIcon>
+                    <StyledIcon className="">
                         <CiMenuKebab onClick={ () =>
                         {
                             displayConfig === "block" ? 
@@ -83,7 +87,7 @@ export const BookingsDetail = (booking : Booking) => {
 
             </Details>
             <PhotoDetails>
-                <RoomImage src={example} alt="" />
+                <RoomImage alt="" />
             </PhotoDetails>
         </Container>
 
@@ -91,7 +95,7 @@ export const BookingsDetail = (booking : Booking) => {
             <p>Are you sure you want to delete booking {booking.booking_id} ?</p>
             <hr />
             <Button onClick={ () => setModal("none")} color={"white"} $backgroundcolor={"red"}>Cancel</Button>
-            <Button onClick={handleDelete}>Delete</Button>
+            <Button onClick={handleDelete} $backgroundcolor="">Delete</Button>
         </ConfirmModal>
         </Page>
 }

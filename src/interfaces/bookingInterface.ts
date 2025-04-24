@@ -1,5 +1,6 @@
 export default interface Booking{
     booking_id: number,
+    room_id : number,
     client_id: number,
     order_date: string,
     check_in_date: string,
