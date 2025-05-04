@@ -70,6 +70,6 @@ export const BookingsSlice : Slice = createSlice({
     
 })
 
-export const getBookingsError = (state : RootState) => state.bookings.error
+export const getBookingsError = (state : RootState) => state.bookings.error;
 export const getBookingsStatus = (state : RootState) => state.bookings.status;
 export const getBookingsData = (state : RootState) => state.bookings.data;
