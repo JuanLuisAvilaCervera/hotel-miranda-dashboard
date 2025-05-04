@@ -7,29 +7,27 @@ import { CiLogout } from "react-icons/ci";
 
 import { Burguer, MiddleSpace,  Title,  TopContainer } from "./TopMenuStyles";
 import { IconContext } from "react-icons";
-import { useNavigate } from "react-router";
+import { Navigate, useNavigate } from "react-router";
 
 const TopMenu  = ({pagetitle , toggle} : {pagetitle : string , toggle : Function}) => {
 
     const navigate = useNavigate();
 
-    const [login , setLogin] = useState(localStorage.getItem('login'))
+    const locallogin = localStorage.getItem('login');
 
-    const handleLogin = () => {
-        
+    const [login , setLogin] = useState<boolean>(locallogin !== null && locallogin !== "" && locallogin !== undefined)
+
+    const handleLogout = () => {
+        console.log(login)
         localStorage.removeItem('login');
-
-        setLogin("")
+        setLogin(false)
     }
 
-    useEffect( () => {
-        if(login === "" || login === null || login === undefined){
-            localStorage.removeItem('login');
-            navigate("/")
-        }
-    } , [login])
 
     return(
+        !login ?
+        <Navigate to={"/"}/>
+        :
         <TopContainer>
             <Burguer onClick={() => {toggle()}}/>
             <Title>{pagetitle}</Title>
@@ -45,7 +43,7 @@ const TopMenu  = ({pagetitle , toggle} : {pagetitle : string , toggle : Function
                 </div>
             </IconContext.Provider>
             <IconContext.Provider value={{size: "2rem"}}>
-                <div id="logout" onClick={handleLogin}>
+                <div id="logout" onClick={() => handleLogout()}>
                     <CiLogout/>
                 </div>
             </IconContext.Provider>

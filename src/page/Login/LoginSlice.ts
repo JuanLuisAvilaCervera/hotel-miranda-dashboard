@@ -1,14 +1,24 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, Slice } from "@reduxjs/toolkit";
 import LogInThunk, { getLogin } from "./LoginThunk";
+import { RootState } from "../../app/store";
+import { Root } from "react-dom/client";
 
-export const LoginSlice = createSlice({
+interface loginSliceInitialState{
+    status : string,
+    data: boolean,
+    error: string | undefined |null,
+
+}
+
+export const LoginSlice : Slice = createSlice({
 
     name: 'logins',
     initialState: {
         status: 'idle',
-        data: [],
+        data: false,
         error: null
-    },
+    } as loginSliceInitialState,
+    reducers : {},
     extraReducers: (builder) => {
         builder
         .addCase(LogInThunk.pending, (state) => {
@@ -36,6 +46,6 @@ export const LoginSlice = createSlice({
     }
 })
 
-export const getLoginData = (state) => state.logins.data
-export const getLoginStatus = (state) => state.logins.status
-export const getLoginError = (state) => state.logins.error
+export const getLoginData = (state : RootState) => state.logins.data
+export const getLoginStatus = (state : RootState) => state.logins.status
+export const getLoginError = (state : RootState) => state.logins.error

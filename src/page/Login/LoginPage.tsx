@@ -12,8 +12,10 @@ const LoginPage = () => {
 
     const [user , setUser ] = useState('');
     const [password , setPassword] = useState('');
+    
+    const storedLogin : any = localStorage.getItem('login')
 
-    const [login , setLogin] = useState<boolean>(false);
+    const [login , setLogin] = useState<boolean>(storedLogin === null || storedLogin === "" || storedLogin === undefined ? false : true );
 
     const dispatch = useDispatch<AppDispatch>();
 
@@ -25,7 +27,14 @@ const LoginPage = () => {
         if(loginStatus === "idle"){
             dispatch(getLogin());
         }else if(loginStatus === "fulfilled"){
+            console.log("Login : " + login)
+            console.log("LoginData: " + loginData)
 
+            if(loginData){
+                localStorage.setItem('login', "true");
+            }else{
+                localStorage.removeItem('login');
+            }
             setLogin(loginData)
 
         }else if(loginStatus === "rejected"){
@@ -48,7 +57,7 @@ const LoginPage = () => {
    
 
     
-    return login ? 
+    return login === true ? 
     <>
         <Navigate to="/dashboard"/>
     </> : <>

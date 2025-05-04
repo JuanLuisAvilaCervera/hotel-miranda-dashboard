@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-const delay = (ms) => new Promise(  resolve => setTimeout(resolve , ms));
+const delay = (ms : number) => new Promise(  resolve => setTimeout(resolve , ms));
 
 
 
@@ -23,7 +23,9 @@ export const getLogin = createAsyncThunk<boolean>("login/getLogin", async() => {
 
     let login = localStorage.getItem('login')
 
-    if(typeof login === "string" && login !== ""){
+    console.log("GetLogin.localstorage: " + login)
+
+    if(typeof login === "string" && login !== "" && login !== null && login!== undefined){
         return true
     }else{
         return false;
