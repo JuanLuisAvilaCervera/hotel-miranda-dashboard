@@ -2,26 +2,60 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 const delay = (ms : number) => new Promise(  resolve => setTimeout(resolve , ms));
 
-
+const URI = "http://localhost:3000"
 
 const LogInThunk = createAsyncThunk<boolean , {user : string , password : string}>("login/fetch" , async ({user, password}) =>{
-    await delay(200);
 
-    if(user === "admin" && password == "admin"){
+    try{
+        const response = await fetch(URI + "/login", {
+            method: 'POST',
+            headers: { "content-type" : "application/json;charset=UTF-8"},
+            body: JSON.stringify({
+                "username": user,
+                "password": password,
+            })
+        })
 
-        localStorage.setItem('login', user);
+        if(response.ok){
+            const json = await response.json();
+            console.log(json)
+            return json;
+        }
 
-        return true;
-    }else{
-        return false;
+
+    }catch (error){
+
+
+        let message
+        if (error instanceof Error){
+            message = error.message
+            console.error(message)
+        }
+             
+        else{ message = String(error)
+            reportError({ message })
+        }
+        // we'll proceed, but let's report it
+        
     }
 
-});
+    }
+    // await delay(200);
+
+    // if(user === "admin" && password == "admin"){
+
+    //     localStorage.setItem('token', user);
+
+    //     return true;
+    // }else{
+    //     return false;
+    // }
+);
 
 export const getLogin = createAsyncThunk<boolean>("login/getLogin", async() => {
     await delay(200);
 
-    let login = localStorage.getItem('login')
+    let login = localStorage.getItem('token')
 
     console.log("GetLogin.localstorage: " + login)
 
@@ -34,7 +68,7 @@ export const getLogin = createAsyncThunk<boolean>("login/getLogin", async() => {
 
 const LogOut = createAsyncThunk<string , {user : string}>("login/logout", async({user}) => {
     await delay(200);
-    localStorage.removeItem('login');
+    localStorage.removeItem('token');
     return user;
 })
 

@@ -13,7 +13,7 @@ const LoginPage = () => {
     const [user , setUser ] = useState('');
     const [password , setPassword] = useState('');
     
-    const storedLogin : any = localStorage.getItem('login')
+    const storedLogin : any = localStorage.getItem('token')
 
     const [login , setLogin] = useState<boolean>(storedLogin === null || storedLogin === "" || storedLogin === undefined ? false : true );
 
@@ -31,9 +31,9 @@ const LoginPage = () => {
             console.log("LoginData: " + loginData)
 
             if(loginData){
-                localStorage.setItem('login', "true");
+                localStorage.setItem('token', "true");
             }else{
-                localStorage.removeItem('login');
+                localStorage.removeItem('token');
             }
             setLogin(loginData)
 

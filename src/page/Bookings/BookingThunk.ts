@@ -10,7 +10,6 @@ const BookingsThunk = createAsyncThunk("bookings/getBookings", async () =>
         await delay(200);
         const response = await fetch("/Bookings.json");
         const data = await response.json();
-
          return data;
     }
 )

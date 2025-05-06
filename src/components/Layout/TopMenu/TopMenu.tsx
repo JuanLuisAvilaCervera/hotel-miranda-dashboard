@@ -13,13 +13,13 @@ const TopMenu  = ({pagetitle , toggle} : {pagetitle : string , toggle : Function
 
     const navigate = useNavigate();
 
-    const locallogin = localStorage.getItem('login');
+    const locallogin = localStorage.getItem('token');
 
     const [login , setLogin] = useState<boolean>(locallogin !== null && locallogin !== "" && locallogin !== undefined)
 
     const handleLogout = () => {
         console.log(login)
-        localStorage.removeItem('login');
+        localStorage.removeItem('token');
         setLogin(false)
     }
 

@@ -3,7 +3,7 @@ import { Navigate, Outlet } from "react-router-dom";
 
 const PrivateRoute = () => {
 
-  const locallogin = localStorage.getItem('login')
+  const locallogin = localStorage.getItem('token')
 
   console.log("Private route: "+ (locallogin === null))
 

@@ -30,6 +30,7 @@ const BookingsPage = () => {
         if(bookingsStatus === "idle"){
             dispatch(BookingsThunk());
         }else if(bookingsStatus === "fulfilled"){
+            console.log(bookingList)
             console.log(bookingsData)
             setList(bookingsData)
         }else if(bookingsStatus === "rejected"){
@@ -37,6 +38,7 @@ const BookingsPage = () => {
         }
     }, [dispatch , bookingsStatus , bookingsData])
 
+    
 
     const filterBooking = (listFilter : string) => { return bookingsData.filter((booking : Booking) => booking.status === listFilter ) || [] }
 
@@ -84,7 +86,7 @@ const BookingsPage = () => {
 
    
 
-    useEffect(() => { handleOrder() ; console.log(order)}, [order, active])
+    useEffect(() => { handleOrder() }, [order, active])
 
 
     return <Page $alignment="">

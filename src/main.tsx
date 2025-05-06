@@ -28,12 +28,13 @@ createRoot(document.getElementById('root') as HTMLElement).render(
           <Route element={<PrivateRoute />} >
             <Route element={<Layout />}>
               <Route path="/dashboard" element={<DashboardPage />}/>
+
               <Route path="/rooms" element={<RoomPage />}/>
               <Route path='/bookings' element={<BookingsList />}/>
               <Route path='/bookingsdetail' element={<BookingsDetail />}/>
               <Route path='/updateBooking'element={<BookingUpdate/>}/>
-
               <Route path='/newbookings' element={<BookingsAdd />}/>
+              
               <Route path='/contacts' element={<ContactsPage />}/>
               <Route path= '/users' element={<UsersPage/>}/>
             </Route>
