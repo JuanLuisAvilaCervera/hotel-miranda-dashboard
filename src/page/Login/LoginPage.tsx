@@ -8,59 +8,27 @@ import { getLoginData, getLoginStatus } from "./LoginSlice";
 import LogInThunk, { getLogin } from "./LoginThunk";
 import { AppDispatch } from "../../app/store";
 
+
+
 const LoginPage = () => {
+
 
     const [user , setUser ] = useState('');
     const [password , setPassword] = useState('');
-    
-    const storedLogin : any = localStorage.getItem('token')
-
-    const [login , setLogin] = useState<boolean>(storedLogin === null || storedLogin === "" || storedLogin === undefined ? false : true );
 
     const dispatch = useDispatch<AppDispatch>();
 
-    const loginStatus : string = useSelector(getLoginStatus);
-    const loginData : boolean = useSelector(getLoginData);
-
-
-    useEffect( () => {
-        if(loginStatus === "idle"){
-            dispatch(getLogin());
-        }else if(loginStatus === "fulfilled"){
-            console.log("Login : " + login)
-            console.log("LoginData: " + loginData)
-
-            if(loginData){
-                localStorage.setItem('token', "true");
-            }else{
-                localStorage.removeItem('token');
-            }
-            setLogin(loginData)
-
-        }else if(loginStatus === "rejected"){
-            console.log("Error loading bookings")
-        }
-    }, [dispatch , loginStatus , loginData])
-    
 
     const handleSubmit = (event : React.SyntheticEvent<HTMLFormElement>) => {
         event.preventDefault();
-
-        
         if(user !== '' && password !== ''){
             dispatch(LogInThunk({user , password}))
-            if(loginStatus === 'fulfilled'){
-                setLogin(loginData)
-            }
         }
     }
    
 
     
-    return login === true ? 
-    <>
-        <Navigate to="/dashboard"/>
-    </> : <>
+    return <>
         <LoginBody>
             <Logo/>
             <LoginContainer>

@@ -40,7 +40,10 @@ const BookingsPage = () => {
 
     
 
-    const filterBooking = (listFilter : string) => { return bookingsData.filter((booking : Booking) => booking.status === listFilter ) || [] }
+    const filterBooking = (listFilter : string) => {
+        return bookingsData.filter((booking : Booking) => 
+            booking.status === listFilter ) || []
+    }
 
 
     const changeActive = (listName : string) => {

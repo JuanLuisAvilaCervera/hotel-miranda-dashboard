@@ -1,23 +1,73 @@
-import { AsyncThunk, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import Booking from "../../interfaces/bookingInterface";
-import { update } from "cypress/types/lodash";
 
 const delay = (ms: number) => new Promise(  resolve => setTimeout(resolve , ms));
 
+const URI = "http://localhost:3000"
 
 const BookingsThunk = createAsyncThunk("bookings/getBookings", async () => 
     {
-        await delay(200);
-        const response = await fetch("/Bookings.json");
-        const data = await response.json();
-         return data;
+        try{
+            const response = await fetch(URI + "/bookings", {
+                method: 'GET',
+                headers: { "content-type" : "application/json;charset=UTF-8" , "Authorization" : `Bearer ${localStorage.getItem('token')}`},
+                
+            })
+    
+            if(response.ok){
+                const json = await response.json();
+                console.log(json)
+                return json;
+            }
+    
+    
+        }catch (error){
+    
+    
+            let message
+            if (error instanceof Error){
+                message = error.message
+                console.error(message)
+            }
+                 
+            else{ message = String(error)
+                reportError({ message })
+            }
+            
+        }
     }
 )
 
 export const AddBookingsThunk= createAsyncThunk<Booking, Booking>("bookings/addBookings", async (newBooking) =>
 {
-    await delay(200);
-    return newBooking;
+    try{
+        const response = await fetch(process.env.URI + "/users", {
+            method: 'POST',
+            headers: { "content-type" : "application/json;charset=UTF-8"},
+            body: JSON.stringify(newBooking)
+        })
+
+        if(response.ok){
+            const json = await response.json();
+            console.log(json)
+            return json;
+        }
+
+
+    }catch (error){
+
+
+        let message
+        if (error instanceof Error){
+            message = error.message
+            console.error(message)
+        }
+             
+        else{ message = String(error)
+            reportError({ message })
+        }
+        
+    }
 })
 
 //{booking_id : number , updatedBooking}

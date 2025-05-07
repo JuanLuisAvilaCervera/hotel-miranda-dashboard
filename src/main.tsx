@@ -11,7 +11,7 @@ import RoomPage from './page/Rooms/RoomPage'
 import BookingsList from './page/Bookings/BookingsList'
 import ContactsPage from './page/Contacts/ContactsPage'
 import LoginPage from './page/Login/LoginPage';
-import UsersPage from './page/Users/UsersPage';
+import UsersPage from './page/Users/UsersList';
 import { BookingsAdd } from './page/Bookings/BookingsAdd'
 import Layout from './components/Layout/Layout'
 import { BookingsDetail } from './page/Bookings/BookingDetails'

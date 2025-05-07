@@ -19,6 +19,7 @@ const LogInThunk = createAsyncThunk<boolean , {user : string , password : string
         if(response.ok){
             const json = await response.json();
             console.log(json)
+            localStorage.setItem('token' , json.token);
             return json;
         }
 
@@ -35,21 +36,10 @@ const LogInThunk = createAsyncThunk<boolean , {user : string , password : string
         else{ message = String(error)
             reportError({ message })
         }
-        // we'll proceed, but let's report it
         
     }
 
     }
-    // await delay(200);
-
-    // if(user === "admin" && password == "admin"){
-
-    //     localStorage.setItem('token', user);
-
-    //     return true;
-    // }else{
-    //     return false;
-    // }
 );
 
 export const getLogin = createAsyncThunk<boolean>("login/getLogin", async() => {
