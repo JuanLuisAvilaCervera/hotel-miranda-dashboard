@@ -1,6 +1,4 @@
 import {  createContext, PropsWithChildren, ReactNode, useContext, useReducer } from "react"
-import { useDispatch } from "react-redux";
-import LogInThunk from "./LoginThunk";
 
 interface Authorization {
     logged: boolean,
@@ -30,8 +28,6 @@ export const useAuth = () => {
     return context;
 }
 
-
-
 const initialState : AuthState = {
     logged : false ,
     token : null
@@ -51,7 +47,17 @@ const authReducer = (state : AuthState , action : AuthAction) : AuthState => {
 export const AuthProvider = ({children} : {children : ReactNode}) => {
 
     const [state, setState] = useReducer(authReducer , initialState);
-    const authorization : Authorization = useAuth();
+
+    const login = (token : string) => {
+        setState( {type : "login" , token : token});
+    }
+
+    const logout = () => {
+        setState({type: "logout"});
+    }
+
+
+    const authorization : Authorization = {...state , login , logout};
 
 
     return (

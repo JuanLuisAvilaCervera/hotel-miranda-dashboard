@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import { CiMail } from "react-icons/ci";
 import { CiBellOn } from "react-icons/ci";
 import { CiLogout } from "react-icons/ci";
@@ -7,27 +6,11 @@ import { CiLogout } from "react-icons/ci";
 
 import { Burguer, MiddleSpace,  Title,  TopContainer } from "./TopMenuStyles";
 import { IconContext } from "react-icons";
-import { Navigate, useNavigate } from "react-router";
 
-const TopMenu  = ({pagetitle , toggle} : {pagetitle : string , toggle : Function}) => {
-
-    const navigate = useNavigate();
-
-    const locallogin = localStorage.getItem('token');
-
-    const [login , setLogin] = useState<boolean>(locallogin !== null && locallogin !== "" && locallogin !== undefined)
-
-    const handleLogout = () => {
-        console.log(login)
-        localStorage.removeItem('token');
-        setLogin(false)
-    }
-
+const TopMenu  = ({pagetitle , toggle , handleLogout} : {pagetitle : string , toggle : Function , handleLogout : Function}) => {
 
     return(
-        !login ?
-        <Navigate to={"/"}/>
-        :
+        
         <TopContainer>
             <Burguer onClick={() => {toggle()}}/>
             <Title>{pagetitle}</Title>
@@ -43,7 +26,7 @@ const TopMenu  = ({pagetitle , toggle} : {pagetitle : string , toggle : Function
                 </div>
             </IconContext.Provider>
             <IconContext.Provider value={{size: "2rem"}}>
-                <div id="logout" onClick={() => handleLogout()}>
+                <div id="logout" onClick={() => {handleLogout()}}>
                     <CiLogout/>
                 </div>
             </IconContext.Provider>

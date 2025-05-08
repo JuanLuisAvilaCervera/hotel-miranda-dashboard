@@ -4,25 +4,44 @@ import { LayoutContainer } from "./LayoutStyle";
 import TopMenu from "./TopMenu/TopMenu";
 import LeftMenu from "./LeftMenu/LeftMenu";
 import { useAuth } from "../../page/Login/useAuth";
+import LoginPage from "../../page/Login/LoginPage";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../../app/store";
+import { getLoginData, getLoginStatus } from "../../page/Login/LoginSlice";
+import { LogOut } from "../../page/Login/LoginThunk";
+
 
 
 const Layout = () => {
 
-    const { logged  , logout , login } = useAuth();
-
     const [leftMenuVisible , setLeftMenuVisible] = useState(true);
-    const [title ,setTitle] = useState("Dashboard");
 
-    useEffect(() => {
+    const initialTitle : string = String(window.location.pathname).charAt(1).toUpperCase() + String(window.location.pathname).slice(2);
+
+    const [title ,setTitle] = useState(initialTitle);
+
+    const dispatch = useDispatch<AppDispatch>();
+    const {logged , logout : contextLogout , login : contextLogin }= useAuth();
+    
+    const loginStatus = useSelector(getLoginStatus);
+    const loginData = useSelector(getLoginData);
+    
+    
+    const handleLogout = () => {
+        dispatch(LogOut());
+    }
+
+    useEffect( () => {
+
         const storedToken = localStorage.getItem('token');
-        const logged = localStorage.getItem('logged') === 'true';
-
-        if(logged && storedToken !== null && storedToken !== "" && storedToken !== undefined){
-            login(storedToken);
+        if(loginStatus === "fulfilled")
+        if(storedToken !== null){
+            contextLogin(storedToken)
         }else{
-            logout();
+            contextLogout();
         }
-    }, [logged , login , logout])
+
+    }, [dispatch, loginStatus , loginData])
 
 
     const toggleLeftMenu = () => {
@@ -34,11 +53,18 @@ const Layout = () => {
     }
 
 
-    return <LayoutContainer $visibility={leftMenuVisible}>
+    return(
+        !logged ?
+            <LoginPage/>
+        :
+            <LayoutContainer $visibility={leftMenuVisible}>
                 <LeftMenu visibility={leftMenuVisible} handleTitle={ (props : string) => handleTitle(props)}/>
-                <TopMenu toggle={toggleLeftMenu} pagetitle={title}/>
+                <TopMenu toggle={toggleLeftMenu} pagetitle={title} handleLogout={handleLogout}/>
                 <Outlet />
-            </LayoutContainer>;
+            </LayoutContainer>
+    )
+    
+    
 };
 
 export default Layout;

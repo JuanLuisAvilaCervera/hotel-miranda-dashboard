@@ -16,7 +16,6 @@ const BookingsThunk = createAsyncThunk("bookings/getBookings", async () =>
     
             if(response.ok){
                 const json = await response.json();
-                console.log(json)
                 return json;
             }
     

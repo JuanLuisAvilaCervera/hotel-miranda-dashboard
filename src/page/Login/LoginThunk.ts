@@ -4,7 +4,7 @@ const delay = (ms : number) => new Promise(  resolve => setTimeout(resolve , ms)
 
 const URI = "http://localhost:3000"
 
-const LogInThunk = createAsyncThunk<boolean , {user : string , password : string}>("login/fetch" , async ({user, password}) =>{
+const LogInThunk = createAsyncThunk<string | null , {user : string , password : string}>("login/fetch" , async ({user, password}) =>{
 
     try{
         const response = await fetch(URI + "/login", {
@@ -18,9 +18,10 @@ const LogInThunk = createAsyncThunk<boolean , {user : string , password : string
 
         if(response.ok){
             const json = await response.json();
-            console.log(json)
             localStorage.setItem('token' , json.token);
             return json;
+        }else{
+            return null;
         }
 
 
@@ -31,18 +32,18 @@ const LogInThunk = createAsyncThunk<boolean , {user : string , password : string
         if (error instanceof Error){
             message = error.message
             console.error(message)
-        }
-             
-        else{ message = String(error)
+            
+        }else{ message = String(error)
             reportError({ message })
+
         }
-        
+        return null;
     }
 
     }
 );
 
-export const getLogin = createAsyncThunk<boolean>("login/getLogin", async() => {
+export const getLogin = createAsyncThunk<string | null>("login/getLogin", async() => {
     await delay(200);
 
     let login = localStorage.getItem('token')
@@ -50,16 +51,16 @@ export const getLogin = createAsyncThunk<boolean>("login/getLogin", async() => {
     console.log("GetLogin.localstorage: " + login)
 
     if(typeof login === "string" && login !== "" && login !== null && login!== undefined){
-        return true
+        return login
     }else{
-        return false;
+        return null;
     }
 })
 
-const LogOut = createAsyncThunk<string , {user : string}>("login/logout", async({user}) => {
+export const LogOut = createAsyncThunk("login/logout", async() => {
     await delay(200);
     localStorage.removeItem('token');
-    return user;
+    return null;
 })
 
 export default LogInThunk;

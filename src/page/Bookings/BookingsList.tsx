@@ -30,8 +30,6 @@ const BookingsPage = () => {
         if(bookingsStatus === "idle"){
             dispatch(BookingsThunk());
         }else if(bookingsStatus === "fulfilled"){
-            console.log(bookingList)
-            console.log(bookingsData)
             setList(bookingsData)
         }else if(bookingsStatus === "rejected"){
             console.log("Error loading bookings")
