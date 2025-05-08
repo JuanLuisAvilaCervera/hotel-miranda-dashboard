@@ -10,7 +10,7 @@ const BookingsThunk = createAsyncThunk("bookings/getBookings", async () =>
         try{
             const response = await fetch(URI + "/bookings", {
                 method: 'GET',
-                headers: { "content-type" : "application/json;charset=UTF-8" , "Authorization" : `Bearer ${localStorage.getItem('token')}`},
+                headers: { "content-type" : "application/json;charset=UTF-8" , "authorization" : `Bearer ${localStorage.getItem('token')}`},
                 
             })
     

@@ -11,7 +11,9 @@ const UsersThunk = createAsyncThunk("users/getUsers", async () =>
         try{
             const response = await fetch(URI + "/users", {
                 method: 'GET',
-                headers: { "content-type" : "application/json;charset=UTF-8"},
+                headers: { "content-type" : "application/json;charset=UTF-8" ,
+                    "authorization" : `Bearer ${localStorage.getItem('token')}`
+                },
             })
     
             if(response.ok){

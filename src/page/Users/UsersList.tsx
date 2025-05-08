@@ -24,6 +24,8 @@ const UsersPage = () => {
     const usersStatus : string = useSelector(getUsersStatus);
 
     useEffect( () => {
+
+        console.log(usersData)
         if(usersStatus === "idle"){
             dispatch(UsersThunk());
         }else if(usersStatus === 'fulfilled'){
@@ -31,7 +33,7 @@ const UsersPage = () => {
         }else if(usersStatus === 'rejected'){
             console.log("Error loading users")
         }
-    }, [dispatch, usersStatus])
+    }, [dispatch, usersStatus, usersData])
 
 
     const filterActive = (listFilter : boolean) => {
@@ -94,7 +96,7 @@ const UsersPage = () => {
                    
                 
             {users.length > 0 || usersStatus === "fulfilled" ?  
-                    users.length > 0 ? <TableComponent data={users}/> : <h1>No bookings found</h1> 
+                    users.length > 0 ? <TableComponent data={users}/> : <h1>No users found</h1> 
                 : <h1>Loading...</h1>
             }
             </Page>;

@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import Store from './app/store'
 
 import DashboardPage from './page/Dashboard/DashboardPage'
-import RoomPage from './page/Rooms/RoomPage'
+import RoomPage from './page/Rooms/RoomsList'
 import BookingsList from './page/Bookings/BookingsList'
 import ContactsPage from './page/Contacts/ContactsPage'
 import UsersPage from './page/Users/UsersList';
