@@ -9,20 +9,23 @@ import { Button } from "../../common/Buttons.js";
 
 const LeftMenu  = ({visibility, handleTitle} : {visibility : boolean , handleTitle : Function}) => {
 
+    const initialTitle : string = String(window.location.pathname).charAt(1).toUpperCase() + String(window.location.pathname).slice(2);
 
-    const [active , setActive] = useState("Dashboard");
+    const [active , setActive] = useState(initialTitle || "Dashboard");
+
 
     const changeActive = ( elementName : string) => {
         setActive(elementName);
         handleTitle(elementName);
     }
 
+
     return(
         <LeftContainer $visibility={visibility}>
             <Logo/>
             <UnorderedList>
                 <NavList page={"/"} content={"Dashboard"} active={active === "Dashboard" ? "active" : ""} activate={() => changeActive("Dashboard")}/>
-                <NavList page={"/rooms"} content={"Room"} active={active === "Room" ? "active" : ""} activate={() => changeActive("Room")}/>
+                <NavList page={"/rooms"} content={"Rooms"} active={active === "Rooms" ? "active" : ""} activate={() => changeActive("Rooms")}/>
                 <NavList page={"/bookings"} content={"Bookings"} active={active === "Bookings" ? "active" : ""} activate={() => changeActive("Bookings")}/>
                 <NavList page={"/contacts"} content={"Contacts"} active={active === "Contacts" ? "active" : ""} activate = { () => changeActive("Contacts")} />
                 <NavList page={"/users"} content={"Users"} active={active === "Users" ? "active" : ""} activate = { () => changeActive("Users")}/>

@@ -1,39 +1,66 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-const delay = (ms) => new Promise(  resolve => setTimeout(resolve , ms));
+const delay = (ms : number) => new Promise(  resolve => setTimeout(resolve , ms));
+
+const URI = "http://localhost:3000"
+
+const LogInThunk = createAsyncThunk<string | null , {user : string , password : string}>("login/fetch" , async ({user, password}) =>{
+
+    try{
+        const response = await fetch(URI + "/login", {
+            method: 'POST',
+            headers: { "content-type" : "application/json;charset=UTF-8"},
+            body: JSON.stringify({
+                "username": user,
+                "password": password,
+            })
+        })
+
+        if(response.ok){
+            const json = await response.json();
+            localStorage.setItem('token' , json.token);
+            return json;
+        }else{
+            return null;
+        }
 
 
+    }catch (error){
 
-const LogInThunk = createAsyncThunk<boolean , {user : string , password : string}>("login/fetch" , async ({user, password}) =>{
-    await delay(200);
 
-    if(user === "admin" && password == "admin"){
+        let message
+        if (error instanceof Error){
+            message = error.message
+            console.error(message)
+            
+        }else{ message = String(error)
+            reportError({ message })
 
-        localStorage.setItem('login', user);
-
-        return true;
-    }else{
-        return false;
+        }
+        return null;
     }
 
-});
+    }
+);
 
-export const getLogin = createAsyncThunk<boolean>("login/getLogin", async() => {
+export const getLogin = createAsyncThunk<string | null>("login/getLogin", async() => {
     await delay(200);
 
-    let login = localStorage.getItem('login')
+    let login = localStorage.getItem('token')
 
-    if(typeof login === "string" && login !== ""){
-        return true
+    console.log("GetLogin.localstorage: " + login)
+
+    if(typeof login === "string" && login !== "" && login !== null && login!== undefined){
+        return login
     }else{
-        return false;
+        return null;
     }
 })
 
-const LogOut = createAsyncThunk<string , {user : string}>("login/logout", async({user}) => {
+export const LogOut = createAsyncThunk("login/logout", async() => {
     await delay(200);
-    localStorage.removeItem('login');
-    return user;
+    localStorage.removeItem('token');
+    return null;
 })
 
 export default LogInThunk;

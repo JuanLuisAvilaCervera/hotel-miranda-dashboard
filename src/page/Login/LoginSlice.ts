@@ -1,14 +1,24 @@
-import { createSlice } from "@reduxjs/toolkit";
-import LogInThunk, { getLogin } from "./LoginThunk";
+import { createSlice, Slice } from "@reduxjs/toolkit";
+import LogInThunk, { getLogin, LogOut } from "./LoginThunk";
+import { RootState } from "../../app/store";
+import { Root } from "react-dom/client";
 
-export const LoginSlice = createSlice({
+interface loginSliceInitialState{
+    status : string,
+    data: string | null,
+    error: string | undefined |null,
+
+}
+
+export const LoginSlice : Slice = createSlice({
 
     name: 'logins',
     initialState: {
         status: 'idle',
-        data: [],
+        data: null,
         error: null
-    },
+    } as loginSliceInitialState,
+    reducers : {},
     extraReducers: (builder) => {
         builder
         .addCase(LogInThunk.pending, (state) => {
@@ -33,9 +43,19 @@ export const LoginSlice = createSlice({
             state.status = 'rejected';
             state.error = action.error.message;
         })
+        .addCase(LogOut.pending, (state) => {
+            state.status = 'pending'
+        }).addCase(LogOut.fulfilled, (state, action) => {
+            state.status = 'fulfilled';
+            state.data = action.payload;
+        })
+        .addCase(LogOut.rejected, (state, action) => {
+            state.status = 'rejected';
+            state.error = action.error.message;
+        })
     }
 })
 
-export const getLoginData = (state) => state.logins.data
-export const getLoginStatus = (state) => state.logins.status
-export const getLoginError = (state) => state.logins.error
+export const getLoginData = (state : RootState) => state.logins.data
+export const getLoginStatus = (state : RootState) => state.logins.status
+export const getLoginError = (state : RootState) => state.logins.error

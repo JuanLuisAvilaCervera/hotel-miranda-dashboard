@@ -36,8 +36,12 @@ const BookingsPage = () => {
         }
     }, [dispatch , bookingsStatus , bookingsData])
 
+    
 
-    const filterBooking = (listFilter : string) => { return bookingsData.filter((booking : Booking) => booking.status === listFilter ) || [] }
+    const filterBooking = (listFilter : string) => {
+        return bookingsData.filter((booking : Booking) => 
+            booking.status === listFilter ) || []
+    }
 
 
     const changeActive = (listName : string) => {
@@ -83,7 +87,7 @@ const BookingsPage = () => {
 
    
 
-    useEffect(() => { handleOrder() ; console.log(order)}, [order, active])
+    useEffect(() => { handleOrder() }, [order, active])
 
 
     return <Page $alignment="">

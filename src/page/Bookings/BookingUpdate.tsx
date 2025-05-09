@@ -31,10 +31,6 @@ export const BookingUpdate = () => {
         special_request: booking.special_request
     })
 
-    
-    // console.log(bookingsStatus);
-    // console.log(updateBooking);
-            // console.log(bookingsStatus);
 
     const handleSubmit = (event : FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -61,7 +57,6 @@ export const BookingUpdate = () => {
                 value = YMDtoMDY(new Date(event.target.value));
                 break;
             case "number":
-                console.log(event.target.value)
                 !isNaN(parseInt(event.target.value)) && parseInt(event.target.value) != 0 ? value = event.target.value : value = "";
                 break;
             default:

@@ -30,22 +30,16 @@ export const BookingsDetail = () => {
 
     const handleDelete = () => {
 
-        console.log(booking.booking_id)
 
         const booking_id = booking.booking_id;
 
         dispatch(DeleteBookingThunk({booking_id}))
 
-        console.log(bookingsStatus)
 
         if(bookingsStatus === 'fulfilled'){
             navigate("/bookings")
         };
     }
-
-    
-
-    useEffect(() => console.log(booking), [booking])
 
     
     return <Page $alignment="">
