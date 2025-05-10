@@ -16,14 +16,15 @@ import { YMDtoMDY , MDYtoYMD } from "../../global/dateFormating.js";
 
 const BookingsPage = () => {
 
+    const bookingsData : Booking[] = useAppSelector(getBookingsData);
     const [active , setActive] = useState("all");
     const [order , setOrder] = useState("order_date");
-    const [bookingList , setList] = useState<Booking[]>([]);
+    const [bookingList , setList] = useState<Booking[]>(bookingsData);
 
     const navigate = useNavigate();
     const dispatch = useDispatch<AppDispatch>();
 
-    const bookingsData : Booking[] = useAppSelector(getBookingsData);
+    
     const bookingsStatus : string = useAppSelector(getBookingsStatus);
 
     useEffect( () => {
@@ -111,7 +112,7 @@ const BookingsPage = () => {
             </OrderSelectDiv>
             </TableNav>
             
-            {bookingList.length > 0 || bookingsStatus === "fulfilled" ? bookingList.length > 0 ? <TableComponent data={bookingList}/> : <h1>No bookings found</h1> : <h1>Loading...</h1>}
+            { bookingsStatus === "fulfilled" ? bookingList.length > 0 ? <TableComponent data={bookingList}/> : <h1>No bookings found</h1> : <h1>Loading...</h1>}
             </Page>;
 }
 

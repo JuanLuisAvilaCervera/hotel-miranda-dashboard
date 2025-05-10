@@ -1,41 +1,23 @@
 import React, {  useEffect, useState } from "react";
-import Booking from "../../../interfaces/bookingInterface";
 import { ProfilePic, Tables } from "./Table";
-import User from "../../../interfaces/userInterface";
-import Contact from "../../../interfaces/contactInteface";
 import { Button } from "../Buttons";
 import { useNavigate } from "react-router";
+import { UserInterface } from "../../../interfaces/userInterface";
+import { YMDtoMDY } from "../../../global/dateFormating";
 
-const TableComponent = ({data} : {data: Booking[] | User[] | Contact[]}) => {
+const TableComponent = ({data , columns} : {data : UserInterface[] , columns: ColumnInterface[]}) => {
 
     const navigate = useNavigate();
 
-    const [columns , setColumns] = useState<Array <keyof typeof data[0]>>([]);
     const [page , setPage] = useState<number>(0);
 
 
-    useEffect(() => {data ? setColumns(Object.keys(data[0]) as Array<keyof typeof data[0]>) : setColumns([])} , [data])
-
-   const generateColumnName = (column : string) =>{
-
-        let columnNameArray = column.length > 0 ?  column.split("_") : [];
-
-        for(let j = 0 ; j < columnNameArray.length ; j++){
-            columnNameArray[j] = String(columnNameArray[j]).charAt(0).toUpperCase() + String(columnNameArray[j]).slice(1);
-        }
-
-
-        return columnNameArray.join(" ");;
-    }
     
     return <Tables>
             <thead>
                 <tr>
                     {[...columns].map((column, key) => {
-
-                        const columnName = generateColumnName(column);
-
-                        return <th key={key}>{columnName}</th>;
+                        return <th key={key}>{column.name}</th>;
                     })}
                 </tr>
             </thead>
@@ -45,16 +27,32 @@ const TableComponent = ({data} : {data: Booking[] | User[] | Contact[]}) => {
                                 {
                                     
                                     [...columns].map(( column , columnKey) => {
-                                        switch(column){
-                                            case "photo":
-                                                return <td key={columnKey}><ProfilePic src={row[column]} alt=""/></td>
+                                        switch(column.type){
+                                            case "profile":
+                                                return <td key={columnKey}>
+                                                    <ProfilePic src={row[column.data[2]]} alt=""/>
+                                                    <p>{ String(row[column.data[0]]).substring(0,100)} { String(row[column.data[1]]).substring(0,100)}</p>
+                                                    <p>#{ String(row[column.data[3]]).substring(0,100)}</p>
+                                                </td>
                                             case "special_request":
                                                 return <td key={columnKey}><Button $backgroundcolor="" onClick={() => {
                                                     localStorage.setItem('selectedBooking', JSON.stringify(row))
                                                     navigate("/bookingsdetail")
                                                 }}>View Details</Button></td>
+                                            
+                                            case "date":
+                                                if( Object.prototype.toString.call(row[column.data[0]]) === '[object Date]'){
+                                                    console.log(row[column.data[0]])
+                                                    return <td key={columnKey}>{YMDtoMDY(row[column.data[0]])}</td>
+                                                }
+                                                else if(typeof row[column.data[0]] === "string")
+                                                    return <td key={columnKey}>{row[column.data[0]].substring(0, 10)}</td>
+                                                else
+                                                    return <td key={columnKey}>{ String(row[column.data[0]]).substring(0,100)}</td>
+                                            break;
+
                                             default:
-                                                return <td key={columnKey}>{ String(row[column]).substring(0,100)}</td>
+                                                return <td key={columnKey}>{ String(row[column.data[0]]).substring(0,100)}</td>
 
                                         }
                                     })
@@ -68,75 +66,3 @@ const TableComponent = ({data} : {data: Booking[] | User[] | Contact[]}) => {
 }
 
 export default TableComponent;
-
-// import React, {  useEffect, useState } from "react";
-// import { ProfilePic, Tables } from "./Table.js";
-// import { Button } from "../Buttons.js";
-// import { useNavigate } from "react-router";
-
-// const Table = ({data, dataType}) => {
-
-    
-
-//     const [columns , setColumns] = useState([]);
-//     const [page , setPage] = useState(0);
-
-//     const navigate = useNavigate();
-
-
-//     useEffect(() => {data ? setColumns([...Object.keys(data[0])]) : setColumns([])} , [data])
-
-//    const generateColumnName = (column) =>{
-
-
-//         let columnNameArray = column.split("_");
-
-//         for(let j = 0 ; j < columnNameArray.length ; j++){
-//             columnNameArray[j] = String(columnNameArray[j]).charAt(0).toUpperCase() + String(columnNameArray[j]).slice(1);
-//         }
-
-//         return columnNameArray.join(" ");;
-//     }
-    
-//     return ( <>
-//         <Tables>
-//             <thead>
-//                 <tr>
-//                     {columns.map((column, key) => {
-
-//                         const columnName = generateColumnName(column);
-
-//                         return <th key={key}>{columnName}</th>;
-//                     })}
-//                 </tr>
-//             </thead>
-//             <tbody>
-//                     {data.slice(page*10, page*10 +10).map((row , key) => {
-
-//                             return <tr key={key}>
-//                                 { 
-//                                     columns.map(( column , columnKey) => {
-//                                         switch(column){
-//                                             case "photo":
-//                                                 return <td key={columnKey}><ProfilePic src={row[column]} alt=""/></td>
-//                                             case "special_request":
-//                                                 return <td key={columnKey}><Button onClick={() => {
-//                                                     localStorage.setItem('selectedBooking', JSON.stringify(row))
-//                                                     navigate("/bookingsdetail")
-//                                                 }}>View Details</Button></td>
-//                                             default:
-//                                                 return <td key={columnKey}>{ String(row[column]).substring(0,100)}</td>
-
-//                                         }
-//                                     })
-//                                 }
-//                             </tr>
-//                         })
-//                     }
-//             </tbody>
-//         </Tables>
-//         </>
-//     )
-// }
-
-// export default Table;

@@ -81,7 +81,6 @@ export const BookingsAdd = () => {
         setBooking({...newBooking, [name] : value});
     }
 
-    // useEffect(() => console.log(newBooking), [newBooking])
 
     return <Page $alignment="">
         <FormElement onSubmit={handleSubmit}>

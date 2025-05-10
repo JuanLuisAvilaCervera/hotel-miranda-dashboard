@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import User from "../../interfaces/userInterface"
+
 
 const delay = (ms: number) => new Promise( resolve => setTimeout(resolve , ms))
 
@@ -18,7 +18,6 @@ const UsersThunk = createAsyncThunk("users/getUsers", async () =>
     
             if(response.ok){
                 const json = await response.json();
-                console.log(json)
                 return json;
             }
     

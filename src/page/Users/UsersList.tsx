@@ -5,27 +5,59 @@ import { OrderSelect, OrderSelectDiv, TableNav, UnorderedList , NavList } from "
 import { useDispatch, useSelector } from "react-redux";
 import { getUsersData, getUsersStatus } from "./UserSlice.js";
 
-import User from "../../interfaces/userInterface.js";
+
 import UsersThunk from "./UserThunk.js";
 import { AppDispatch } from "../../app/store.js";
 import { MDYtoYMD } from "../../global/dateFormating.js";
 import TableComponent from "../../components/common/Tables/TableComponent.js";
+import { UserInterface } from "../../interfaces/userInterface.js";
 
 const UsersPage = () => {
-    
+
+
+    const dispatch = useDispatch<AppDispatch>();
+    const usersData : UserInterface[] = useSelector(getUsersData);
+    const usersStatus : string = useSelector(getUsersStatus);
 
     const [order , setOrder] = useState("start_date");
     const [active, setActive] = useState("all")
-    const [users, setUsers] = useState<User[]>([])
+    const [users, setUsers] = useState<UserInterface[]>(usersData)
 
-    const dispatch = useDispatch<AppDispatch>();
-
-    const usersData : User[] = useSelector(getUsersData);
-    const usersStatus : string = useSelector(getUsersStatus);
+    const columns : ColumnInterface[] = [
+        {
+            name: "Profile",
+            type: "profile",
+            data: ["first_name" , "last_name" , "photo" , "_id"]
+        },
+        {
+            name : "Start Date",
+            type: "date",
+            data: ["start_date"]
+        },
+        {
+            name : "Email",
+            type: "email",
+            data: ["email"]
+        },
+        {
+            name : "Job Description",
+            type: "string",
+            data: ["job_description"]
+        },
+        {
+            name : "Contact",
+            type: "phone",
+            data: ["contact"]
+        },
+        {
+            name : "Active",
+            type: "toggle",
+            data: ["active"]
+        }
+    ]
 
     useEffect( () => {
 
-        console.log(usersData)
         if(usersStatus === "idle"){
             dispatch(UsersThunk());
         }else if(usersStatus === 'fulfilled'){
@@ -35,9 +67,8 @@ const UsersPage = () => {
         }
     }, [dispatch, usersStatus, usersData])
 
-
     const filterActive = (listFilter : boolean) => {
-        return usersData.filter((user : User) =>
+        return usersData.filter((user : UserInterface) =>
              user.active === listFilter) || [];
     }
 
@@ -45,7 +76,7 @@ const UsersPage = () => {
             setActive(listName);
             switch(listName){
                 case "all":
-                    setUsers(users);
+                    setUsers(usersData);
                     break;
                 case "active":
                     setUsers(filterActive(true));
@@ -54,7 +85,7 @@ const UsersPage = () => {
                     setUsers(filterActive(false));
                     break;
                 default:
-                    setUsers(users);
+                    setUsers(usersData);
                     break;
             }
         }
@@ -63,11 +94,11 @@ const UsersPage = () => {
     useEffect(() => { handleOrder()}, [order, active])
 
     const handleOrder = () => {
-        setUsers([...users].sort((a : User,b : User) => {
+        setUsers([...users].sort((a : UserInterface,b : UserInterface) => {
 
             switch(order){
                 case "start_date":
-                    Number(new Date(MDYtoYMD(b.start_date))) - Number(new Date(MDYtoYMD(a.start_date)));
+                    Number(b.start_date) - Number(a.start_date);
                 case "last_name":
                     return (b.last_name > a.last_name ? 1 : -1 );
                 default:
@@ -75,7 +106,7 @@ const UsersPage = () => {
             }
         }));
     }
-
+    
 
     return <Page $alignment="">
             <TableNav $justify={"space-between"}>
@@ -96,7 +127,7 @@ const UsersPage = () => {
                    
                 
             {users.length > 0 || usersStatus === "fulfilled" ?  
-                    users.length > 0 ? <TableComponent data={users}/> : <h1>No users found</h1> 
+                    users.length > 0 ? <TableComponent data={users} columns={columns}/> : <h1>No users found</h1> 
                 : <h1>Loading...</h1>
             }
             </Page>;

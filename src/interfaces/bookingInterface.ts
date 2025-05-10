@@ -1,7 +1,7 @@
 import { ClientInterface } from "./clientInterface"
 import { RoomInterface } from "./roomInterface"
 
-export default interface Booking{
+interface BookingInterface{
     booking_id: number,
     room: RoomInterface,
     client: ClientInterface
@@ -11,3 +11,5 @@ export default interface Booking{
     status: "In Progress" | "Check In" | "Check Out",
     special_request: string
 }
+
+export {BookingInterface}
