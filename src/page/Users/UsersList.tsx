@@ -6,22 +6,27 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUsersData, getUsersStatus } from "./UserSlice.js";
 
 
-import UsersThunk from "./UserThunk.js";
+import UserList from "./UserThunk.js";
 import { AppDispatch } from "../../app/store.js";
 import { MDYtoYMD } from "../../global/dateFormating.js";
 import TableComponent from "../../components/common/Tables/TableComponent.js";
 import { UserInterface } from "../../interfaces/userInterface.js";
+import { Button } from "../../components/common/Buttons.js";
+import { useNavigate } from "react-router";
 
 const UsersPage = () => {
 
 
     const dispatch = useDispatch<AppDispatch>();
+    const navigate = useNavigate();
     const usersData : UserInterface[] = useSelector(getUsersData);
     const usersStatus : string = useSelector(getUsersStatus);
 
+    const [users, setUsers] = useState<UserInterface[]>(usersData)
+
     const [order , setOrder] = useState("start_date");
     const [active, setActive] = useState("all")
-    const [users, setUsers] = useState<UserInterface[]>(usersData)
+    
 
     const columns : ColumnInterface[] = [
         {
@@ -59,7 +64,7 @@ const UsersPage = () => {
     useEffect( () => {
 
         if(usersStatus === "idle"){
-            dispatch(UsersThunk());
+            dispatch(UserList());
         }else if(usersStatus === 'fulfilled'){
             setUsers(usersData)
         }else if(usersStatus === 'rejected'){
@@ -95,16 +100,19 @@ const UsersPage = () => {
 
     const handleOrder = () => {
         setUsers([...users].sort((a : UserInterface,b : UserInterface) => {
-
             switch(order){
                 case "start_date":
-                    Number(b.start_date) - Number(a.start_date);
+                    return new Date(a.start_date).getTime() > new Date(b.start_date).getTime() ? 1 : -1 ;
                 case "last_name":
-                    return (b.last_name > a.last_name ? 1 : -1 );
+                    return (b.last_name < a.last_name ? 1 : -1 );
                 default:
                     return 0;
             }
         }));
+    }
+
+    const toggleActive = (value : boolean) => {
+
     }
     
 
@@ -115,6 +123,7 @@ const UsersPage = () => {
                     <NavList $active={active === "active" ? "active" : ""} onClick = {  () => changeActive("active")}>Active Employees</NavList>
                     <NavList $active={active === "inactive" ? "active" : ""}  onClick = {  () => changeActive("inactive")}>Inactive Employees</NavList>
                 </UnorderedList>
+                <Button $backgroundcolor="" onClick={ () => navigate("/createuser")}>Add User</Button>
                 <OrderSelectDiv>
                     <OrderSelect
                         value={order}
@@ -127,7 +136,7 @@ const UsersPage = () => {
                    
                 
             {users.length > 0 || usersStatus === "fulfilled" ?  
-                    users.length > 0 ? <TableComponent data={users} columns={columns}/> : <h1>No users found</h1> 
+                    users.length > 0 ? <TableComponent data={users} columns={columns} toggle={toggleActive}/> : <h1>No users found</h1> 
                 : <h1>Loading...</h1>
             }
             </Page>;

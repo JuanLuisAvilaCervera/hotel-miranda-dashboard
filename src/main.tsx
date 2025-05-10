@@ -14,6 +14,7 @@ import Layout from './components/Layout/Layout'
 import { BookingsDetail } from './page/Bookings/BookingDetails'
 import { BookingUpdate } from './page/Bookings/BookingUpdate'
 import { AuthProvider } from './page/Login/useAuth'
+import { UserCreate } from './page/Users/UserCreate'
 
 
 
@@ -34,6 +35,7 @@ createRoot(document.getElementById('root') as HTMLElement).render(
               
               <Route path='/contacts' element={<ContactsPage />}/>
               <Route path= '/users' element={<UsersPage/>}/>
+              <Route path='/createuser' element={<UserCreate />}/>
             </Route>
         </Routes>
       </BrowserRouter>

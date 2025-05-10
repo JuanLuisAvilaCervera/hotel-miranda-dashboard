@@ -2,7 +2,7 @@ import React, { ChangeEvent, FormEvent, FormEventHandler, useEffect, useState } 
 import { Page } from "../../components/common/page";
 import { Button, InputButton } from "../../components/common/Buttons";
 import { FormElement, FormInput, FormTextArea } from "../../components/common/Forms/Form";
-import { SubmitTarget, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { AddBookingsThunk } from "./BookingThunk";
 import { getBookingsData, getBookingsStatus } from "./BookingSlice";

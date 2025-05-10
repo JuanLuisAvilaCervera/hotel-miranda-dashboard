@@ -1,11 +1,12 @@
 import { createSlice, Slice } from "@reduxjs/toolkit";
-import UsersThunk from "./UserThunk";
-import User from "../../interfaces/userInterface";
+import UserList, { CreateUser } from "./UserThunk";
+import { UserInterface } from "../../interfaces/userInterface";
 import { RootState } from "../../app/store";
+import { UserCreate } from "./UserCreate";
 
 interface userSliceInitialState{
     status : string,
-    data: User[],
+    data: UserInterface[],
     error: string | undefined |null,
 
 }
@@ -21,14 +22,25 @@ export const UsersSlice : Slice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-        .addCase(UsersThunk.pending, (state) => {
+        .addCase(UserList.pending, (state) => {
             state.status = 'pending'
         })
-        .addCase(UsersThunk.fulfilled, (state, action) => {
+        .addCase(UserList.fulfilled, (state, action) => {
             state.status = 'fulfilled';
             state.data = action.payload;
         })
-        .addCase(UsersThunk.rejected, (state, action) => {
+        .addCase(UserList.rejected, (state, action) => {
+            state.status = 'rejected';
+            state.error = action.error.message;
+        })
+        .addCase(CreateUser.pending , (state) => {
+            state.status = 'pending'
+        })
+        .addCase(CreateUser.fulfilled, (state, action) => {
+            state.status = 'fulfilled';
+            state.data.push(action.payload);
+        })
+        .addCase(CreateUser.rejected, (state, action) => {
             state.status = 'rejected';
             state.error = action.error.message;
         })

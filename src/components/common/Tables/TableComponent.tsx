@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 import { UserInterface } from "../../../interfaces/userInterface";
 import { YMDtoMDY } from "../../../global/dateFormating";
 
-const TableComponent = ({data , columns} : {data : UserInterface[] , columns: ColumnInterface[]}) => {
+const TableComponent = ({data , columns , toggle} : {data : UserInterface[] , columns: ColumnInterface[] , toggle : Function}) => {
 
     const navigate = useNavigate();
 
@@ -42,18 +42,21 @@ const TableComponent = ({data , columns} : {data : UserInterface[] , columns: Co
                                             
                                             case "date":
                                                 if( Object.prototype.toString.call(row[column.data[0]]) === '[object Date]'){
-                                                    console.log(row[column.data[0]])
                                                     return <td key={columnKey}>{YMDtoMDY(row[column.data[0]])}</td>
                                                 }
                                                 else if(typeof row[column.data[0]] === "string")
                                                     return <td key={columnKey}>{row[column.data[0]].substring(0, 10)}</td>
                                                 else
                                                     return <td key={columnKey}>{ String(row[column.data[0]]).substring(0,100)}</td>
-                                            break;
-
+                                            case "toggle":
+                                                
+                                                return <td key={columnKey}>{
+                                                    row[column.data[0]] ?
+                                                    <Button $backgroundcolor="">{column.name}</Button>:
+                                                    <Button $backgroundcolor="red" color="white">{"Not " + column.name}</Button>
+                                                }</td>
                                             default:
                                                 return <td key={columnKey}>{ String(row[column.data[0]]).substring(0,100)}</td>
-
                                         }
                                     })
                                 }
