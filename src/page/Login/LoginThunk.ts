@@ -48,8 +48,6 @@ export const getLogin = createAsyncThunk<string | null>("login/getLogin", async(
 
     let login = localStorage.getItem('token')
 
-    console.log("GetLogin.localstorage: " + login)
-
     if(typeof login === "string" && login !== "" && login !== null && login!== undefined){
         return login
     }else{

@@ -1,6 +1,6 @@
 export const YMDtoMDY  = (YMD : Date) => {
 
-    return  YMD.getMonth() +"/" + YMD.getDate() +"/" +  YMD.getFullYear();
+    return  YMD.getFullYear() + YMD.getMonth() +"-" + YMD.getDate();
 
 }
 
