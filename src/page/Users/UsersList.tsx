@@ -112,7 +112,7 @@ const UsersPage = () => {
     }
 
     const toggleActive = (value : boolean) => {
-
+        dispatch()
     }
     
 

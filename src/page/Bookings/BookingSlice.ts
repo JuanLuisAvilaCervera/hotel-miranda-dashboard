@@ -1,7 +1,7 @@
 import { createSlice, Slice } from "@reduxjs/toolkit";
 import  BookingsThunk, {AddBookingsThunk, DeleteBookingThunk, UpdateBookingThunk} from "./BookingThunk";
 import { RootState } from "../../app/store";
-import Booking from "../../interfaces/bookingInterface";
+import Booking, { BookingInterface } from "../../interfaces/bookingInterface";
 
 interface bookingSliceInitialState{
     status : string,
@@ -48,7 +48,7 @@ export const BookingsSlice : Slice = createSlice({
         .addCase(UpdateBookingThunk.fulfilled, (state, action) =>{
             state.status = 'fulfilled';
             localStorage.setItem('selectedBooking', JSON.stringify(action.payload))
-            const id = state.data.findIndex((booking) => booking.booking_id === action.payload.booking_id);
+            const id = state.data.findIndex((booking : BookingInterface) => booking.booking_id === action.payload.booking_id);
             state.data[id] = action.payload;
         })
         .addCase(UpdateBookingThunk.rejected, (state,action) => {
