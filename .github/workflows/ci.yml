@@ -3,7 +3,7 @@ name: Automatic Deploy
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build:
